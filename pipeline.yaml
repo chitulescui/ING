@@ -1,0 +1,19 @@
+trigger: 
+ branches:
+    include:
+      - main
+pool:
+  name: 'Default'
+  demands:
+    - agent.name -equals SWK
+stages:
+
+- stage: Python
+  jobs:
+  - job: python
+    steps:
+    - task: PythonScript@0
+      inputs:
+        scriptSource: 'filePath'
+        scriptPath: '$(pythonInterpreter)'
+        pythonInterpreter: '$(scriptPath)'
