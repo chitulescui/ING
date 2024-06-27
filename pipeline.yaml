@@ -6,6 +6,10 @@ pool:
   name: 'Default'
   demands:
     - agent.name -equals SWK
+
+variables:
+- group: INGSWKVAR
+
 stages:
 
 - stage: Python
@@ -15,5 +19,5 @@ stages:
     - task: PythonScript@0
       inputs:
         scriptSource: 'filePath'
-        scriptPath: '$(pythonInterpreter)'
-        pythonInterpreter: '$(scriptPath)'
+        scriptPath: '$(scriptPath)'
+        pythonInterpreter: '$(pythonInterpreter)'
