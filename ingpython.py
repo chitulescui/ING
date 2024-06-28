@@ -26,12 +26,13 @@ try:
         auth_plugin=auth_plugin
     ) as connection:
         create_db_query = "CREATE DATABASE online_movie_rating"
+        create_table ="CREATE TABLE Person (name VARCHAR(50), age smallint UNSIGNED, personID int PRIMARY KEY AUTO_INCREMENT)"
         # create_db_queryy="DROP DATABASE online_movie_rating"
         with connection.cursor() as cursor:
-            cursor.execute(create_db_query)
+            # cursor.execute(create_db_query)
             # cursor.execute(create_db_query)
             cursor.execute("USE online_movie_rating")
-            cursor.execute("CREATE TABLE Person (name VARCHAR(50), age smallint UNSIGNED, personID int PRIMARY KEY AUTO_INCREMENT)")
+            cursor.execute(create_table)
             cursor.execute("DESCRIBE Person")
             printfunc()
             print("a ajuns pana aici")
