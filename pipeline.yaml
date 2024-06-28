@@ -29,7 +29,7 @@ stages:
         # Pull MegaLinter docker image
         - powershell: docker run --name some-mysql -p 1433:3306 -e "ACCEPT_EULA=Y" -e MYSQL_ROOT_PASSWORD=$(MYSQL_ROOT_PASSWORD) -d mcr.microsoft.com/mssql/server:2017-latest
           displayName: DockerMySql
-          
+
 - stage: Python
   jobs:
   - job: python
@@ -39,6 +39,7 @@ stages:
         scriptSource: 'filePath'
         scriptPath: '$(scriptPath)'
         pythonInterpreter: '$(pythonInterpreter)'
+        arguments: --passwd $(MYSQL_ROOT_PASSWORD)
   
          # Run MegaLinter
         # - powershell: |
