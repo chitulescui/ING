@@ -1,4 +1,4 @@
-from credentials import host, user, password, port, auth_plugin
+from credentials import host, user, password, sqlport, auth_plugin
 # my_var = os.environ["MY_VAR"]
 import mysql.connector
 import os
@@ -16,12 +16,12 @@ def printfunc():
     for x in cursor:
         print(x)
 
-def connect_to_mysql(host, user, password, port, auth_plugin):
+def connect_to_mysql(host, user, password, sqlport, auth_plugin):
     db = mysql.connector.connect(
         host=host,
         user=user,
         passwd=password,
-        port=port,
+        port=sqlport,
         auth_plugin=auth_plugin
     )
     return db
