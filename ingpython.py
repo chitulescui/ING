@@ -17,20 +17,41 @@ def printfunc():
         print(x)
 
 def connect_to_mysql(host, user, password, sqlport, auth_plugin):
-    db = mysql.connector.connect(
+    connection = mysql.connector.connect(
         host=host,
         user=user,
         passwd=password,
         port=sqlport,
         auth_plugin=auth_plugin
     )
-    print(db)
-    return db
+    return connection
 
+
+
+def create_database():
+    database_name = input("Choose a name for your database")
+    if type(database_name) is not str:
+        print("Your Database name is not valid, string needed")
+        create_database()
+    elif len(database_name) < 8 || len(database_name) > 20:
+        print("Your Database name should contain a maximum of 20 characters and a minimum of 8 characters")
+        create_database()
+    elif database_name:
+        print("Invalid input, please repeat the process")
+        create_database()
+    else:
+        with connection.cursor() as cursor:
+        cursor.execute("CREATE DATABASE " +database_name)
 
 try:
     connect_to_mysql(host, user, password, sqlport, auth_plugin)
-        # create_db_query = "CREATE DATABASE online_movie_rating"
+    create_database()
+
+
+except Error as e:
+    print(e)
+
+# create_db_query = "CREATE DATABASE online_movie_rating"
         # create_table ="CREATE TABLE Person (name VARCHAR(50), age smallint UNSIGNED, personID int PRIMARY KEY AUTO_INCREMENT)"
         # # create_db_queryy="DROP DATABASE online_movie_rating"
         # with connection.cursor() as cursor:
@@ -41,26 +62,11 @@ try:
         #     cursor.execute("DESCRIBE Person")
         #     printfunc()
         #     print("a ajuns pana aici")
-except Error as e:
-    print(e)
 
 
 
 
 
-
-# def connect_to_database(host, user, password, port, auth_plugin, database):
-#     db = mysql.connector.connect(
-#         host=host,
-#         user=user,
-#         passwd=password,
-#         port=port,
-#         auth_plugin=auth_plugin,
-#         database=database
-#     )
-#     return db
-#
-#
 # def create_a_database():
 #     mycursor = db.cursor()
 #     mycursor.execute("CREATE DATABASE testdatabase")
