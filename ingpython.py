@@ -33,7 +33,7 @@ def create_database():
     if type(database_name) is not str:
         print("Your Database name is not valid, string needed")
         create_database()
-    elif len(database_name) < 8 || len(database_name) > 20:
+    elif len(database_name) < 8 or len(database_name) > 20:
         print("Your Database name should contain a maximum of 20 characters and a minimum of 8 characters")
         create_database()
     elif database_name:
