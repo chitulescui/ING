@@ -9,18 +9,9 @@ pool:
 
 variables:
 - group: pythonDetails
+- group: sqlDetails
 
 stages:
-
-- stage: Python
-  jobs:
-  - job: python
-    steps:
-    - task: PythonScript@0
-      inputs:
-        scriptSource: 'filePath'
-        scriptPath: '$(scriptPath)'
-        pythonInterpreter: '$(pythonInterpreter)'
 
 - stage: DockerMySql
   jobs:
@@ -36,9 +27,18 @@ stages:
     # Checkout repo
         - checkout: self
         # Pull MegaLinter docker image
-        - powershell: docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=Cirica01@@Parolafmm123@@" -p 1433:1433 --name sql1 --hostname sql1 -d mcr.microsoft.com/mssql/server:2017-latest
+        - powershell: docker run --name some-mysql -p 1433:3306 -e "ACCEPT_EULA=Y" -e MYSQL_ROOT_PASSWORD=$(MYSQL_ROOT_PASSWORD) -d mcr.microsoft.com/mssql/server:2017-latest
           displayName: DockerMySql
-
+          
+- stage: Python
+  jobs:
+  - job: python
+    steps:
+    - task: PythonScript@0
+      inputs:
+        scriptSource: 'filePath'
+        scriptPath: '$(scriptPath)'
+        pythonInterpreter: '$(pythonInterpreter)'
   
          # Run MegaLinter
         # - powershell: |
