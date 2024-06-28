@@ -1,15 +1,15 @@
 import os
-
+from credentials import host, user, password, port, auth_plugin
 # my_var = os.environ["MY_VAR"]
 import mysql.connector
 from mysql.connector import Error, connect
 
 
-host = os.environ.get("HOST")
-user = os.environ.get("USER")
-password = os.environ.get('MYSQL_ROOT_PASSWORD')
-port = int(os.environ.get("PORT"))
-auth_plugin = os.environ.get("AUTH_PLUGIN")
+# host = os.environ.get("HOST")
+# user = os.environ.get("USER")
+# password = os.environ.get('MYSQL_ROOT_PASSWORD')
+# port = int(os.environ.get("PORT"))
+# auth_plugin = os.environ.get("AUTH_PLUGIN")
 # database = os.environ.get("DATABASE")
 
 try:
