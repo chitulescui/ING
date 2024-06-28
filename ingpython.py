@@ -24,6 +24,7 @@ def connect_to_mysql(host, user, password, sqlport, auth_plugin):
         port=sqlport,
         auth_plugin=auth_plugin
     )
+    print(db)
     return db
 
 
@@ -40,7 +41,6 @@ try:
         #     cursor.execute("DESCRIBE Person")
         #     printfunc()
         #     print("a ajuns pana aici")
-    print(db)
 except Error as e:
     print(e)
 
