@@ -18,20 +18,18 @@ resources:
 
 stages:
 
-- stage: DockerMySql
+- stage: Build_And_Run_Docker_Image
   jobs:
-  - job: BuildDocker
+  - job: Docker_Build
     steps:
       - checkout: ING
       - powershell: docker build . -t chitulescui/sqlserver
-  # - job: StartSql
-    # steps:
-  # Checkout repo
-      # - checkout: self
-      # Pull MegaLinter docker image
-      # - powershell: docker run --name some-mysql -p $(MYPORT):$(PORT) -e $(ACCEPT_EULA) -e MYSQL_ROOT_PASSWORD=$(MYSQL_ROOT_PASSWORD) -d chitulescui/sqlserver
-        # displayName: DockerMySql
-    # dependsOn: BuildDocker
+  - job: Run_Docker_Container
+    steps:
+      - checkout: ING
+      - powershell: docker run --name some-mysql -p $(MYPORT):$(PORT) -e $(ACCEPT_EULA) -e MYSQL_ROOT_PASSWORD=$(MYSQL_ROOT_PASSWORD) -d chitulescui/sqlserver
+        displayName: DockerMySql
+    dependsOn: BuildDocker
 
 # - stage: Python
   # jobs:
