@@ -41,7 +41,7 @@ def create_database():
         create_database()
     else:
         with connection.cursor() as cursor:
-        cursor.execute("CREATE DATABASE " +database_name)
+        cursor.execute(f"CREATE DATABASE {database_name} ")
 
 try:
     connect_to_mysql(host, user, password, sqlport, auth_plugin)
