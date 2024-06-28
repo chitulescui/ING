@@ -21,3 +21,26 @@ stages:
         scriptSource: 'filePath'
         scriptPath: '$(scriptPath)'
         pythonInterpreter: '$(pythonInterpreter)'
+
+- stage: DockerMySql
+  jobs:
+    - job: DockerMySql
+      steps:
+        # Checkout repo
+        - checkout: self
+        # Pull MegaLinter docker image
+        - powershell: docker pull mcr.microsoft.com/mssql/server:2017-latest
+          displayName: DockerMySql
+  
+         # Run MegaLinter
+        # - powershell: |
+            # docker run -v $(System.DefaultWorkingDirectory):/tmp/lint -e SYSTEM_ACCESSTOKEN=$(System.AccessToken) -e GIT_AUTHORIZATION_BEARER=$(System.AccessToken) --name MegaLinter oxsecurity/megalinter:latest
+          # displayName: Run MegaLinter
+        # 
+        # Upload MegaLinter reports
+        # - task: PublishPipelineArtifact@1
+          # condition: succeededOrFailed()
+          # displayName: Upload MegaLinter reports
+          # inputs:
+            # targetPath: "$(System.DefaultWorkingDirectory)/megalinter-reports/"
+            # artifactName: MegaLinterReport
