@@ -21,13 +21,14 @@ def connect_to_mysql(host, user, password, port, auth_plugin):
     )
     return db
 
-def connect_to_database(host, user, password, port, auth_plugin):
+def connect_to_database(host, user, password, port, auth_plugin,database):
     db = mysql.connector.connect(
         host=host,
         user=user,
         passwd=password,
         port=port,
-        auth_plugin=auth_plugin
+        auth_plugin=auth_plugin,
+        database=database
     )
     return db
 
