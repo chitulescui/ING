@@ -21,7 +21,9 @@ try:
         auth_plugin=auth_plugin
     ) as connection:
         create_db_query = "CREATE DATABASE online_movie_rating"
+        create_db_queryy= "DELETE DATABASE online_movie_rating"
         with connection.cursor() as cursor:
+            cursor.execute(create_db_queryy)
             cursor.execute(create_db_query)
             print("a ajuns pana aici")
 except Error as e:
