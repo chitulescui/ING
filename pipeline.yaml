@@ -10,12 +10,11 @@ variables:
 
 resources:
   repositories:
-  - repository: INGGG # The name used to reference this repository in the checkout step
+  - repository: ING # The name used to reference this repository in the checkout step
     type: github
-    name: ING
+    name: chitulescui/ING
     endpoint: chitulescui
-    ref: main
-    
+    ref: developer   
 
 stages:
 
