@@ -36,7 +36,7 @@ stages:
     # Checkout repo
         - checkout: self
         # Pull MegaLinter docker image
-        - powershell: docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=regelelumii" -p 1433:1433 --name sql1 --hostname sql1 -d mcr.microsoft.com/mssql/server:2017-latest
+        - powershell: docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=Cirica01@@Parolafmm123@@" -p 1433:1433 --name sql1 --hostname sql1 -d mcr.microsoft.com/mssql/server:2017-latest
           displayName: DockerMySql
 
   
