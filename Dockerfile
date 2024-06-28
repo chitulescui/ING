@@ -13,7 +13,7 @@ ENV MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD
 
 ARG USER
 ENV USER=$USER
-COPY . . 
+
 WORKDIR /src
 EXPOSE 3306 
 RUN (/opt/mssql/bin/sqlservr --accept-eula & )
