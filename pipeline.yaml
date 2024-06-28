@@ -11,29 +11,20 @@ variables:
 - group: pythonDetails
 - group: sqlDetails
 
+resources:
+  repositories:
+  - repository: ING # The name used to reference this repository in the checkout step
+    type: github
+
 stages:
 
 - stage: DockerMySql
   jobs:
-    # - job: DockerMySql
-      # steps:
-        # Checkout repo
-        # - checkout: self
-        # Pull MegaLinter docker image
-        # - powershell: docker pull mcr.microsoft.com/mssql/server:2017-latest
-          # displayName: DockerMySql
-  - job: DockerBuild
-    steps:
-    - task: Docker@2
-      inputs:
-        repository: 'ING'
-        command: 'build'
-        Dockerfile: '**/Dockerfile'
   
-  # - job: BuildDocker
-    # steps:
-      # - checkout: self
-      # - powershell: docker build . -t chitulescui/sqlserver
+  - job: BuildDocker
+    steps:
+      - checkout: ING
+      - powershell: docker build . -t chitulescui/sqlserver
   # - job: StartSql
     # steps:
   # Checkout repo
