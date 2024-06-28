@@ -12,6 +12,11 @@ from mysql.connector import Error, connect
 # auth_plugin = os.environ.get("AUTH_PLUGIN")
 # database = os.environ.get("DATABASE")
 
+def printfunc():
+    for x in cursor:
+        print(x)
+
+
 try:
     with connect(
         host=host,
@@ -20,14 +25,19 @@ try:
         port=port,
         auth_plugin=auth_plugin
     ) as connection:
-        # create_db_query = "CREATE DATABASE online_movie_rating"
-        create_db_queryy="DROP DATABASE online_movie_rating"
+        create_db_query = "CREATE DATABASE online_movie_rating"
+        # create_db_queryy="DROP DATABASE online_movie_rating"
         with connection.cursor() as cursor:
-            cursor.execute(create_db_queryy)
+            cursor.execute(create_db_query)
             # cursor.execute(create_db_query)
+            cursor.execute("CREATE TABLE Person (name VARCHAR(50), age smallint UNSIGNED, personID int PRIMARY KEY AUTO_INCREMENT)")
+            cursor.execute("DESCRIBE Person")
+            printfunc()
             print("a ajuns pana aici")
 except Error as e:
     print(e)
+
+
 
 
 # def connect_to_mysql(host, user, password, port, auth_plugin):
