@@ -13,14 +13,13 @@ variables:
 
 resources:
   repositories:
-  - repository: ING # The name used to reference this repository in the checkout step
+  - repository: chitulescui/ING # The name used to reference this repository in the checkout step
     type: github
 
 stages:
 
 - stage: DockerMySql
   jobs:
-  
   - job: BuildDocker
     steps:
       - checkout: ING
