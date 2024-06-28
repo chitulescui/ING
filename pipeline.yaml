@@ -22,30 +22,37 @@ stages:
         # Pull MegaLinter docker image
         # - powershell: docker pull mcr.microsoft.com/mssql/server:2017-latest
           # displayName: DockerMySql
-
-    - job: BuildDocker
-      steps:
-        - checkout: self
-        - powershell: docker build . -t chitulescui/sqlserver
-    - job: StartSql
-      steps:
-    # Checkout repo
-        - checkout: self
-        # Pull MegaLinter docker image
-        - powershell: docker run --name some-mysql -p 1433:$(PORT) -e "ACCEPT_EULA=Y" -e MYSQL_ROOT_PASSWORD=$(MYSQL_ROOT_PASSWORD) -d chitulescui/sqlserver
-          displayName: DockerMySql
-      dependsOn: BuildDocker
-
-- stage: Python
-  jobs:
-  - job: python
+  - job: DockerBuild
     steps:
-    - task: PythonScript@0
+    - task: Docker@2
       inputs:
-        scriptSource: 'filePath'
-        scriptPath: '$(scriptPath)'
-        pythonInterpreter: '$(pythonInterpreter)'
+        repository: 'ING'
+        command: 'build'
+        Dockerfile: '**/Dockerfile'
   
+  # - job: BuildDocker
+    # steps:
+      # - checkout: self
+      # - powershell: docker build . -t chitulescui/sqlserver
+  # - job: StartSql
+    # steps:
+  # Checkout repo
+      # - checkout: self
+      # Pull MegaLinter docker image
+      # - powershell: docker run --name some-mysql -p $(MYPORT):$(PORT) -e $(ACCEPT_EULA) -e MYSQL_ROOT_PASSWORD=$(MYSQL_ROOT_PASSWORD) -d chitulescui/sqlserver
+        # displayName: DockerMySql
+    # dependsOn: BuildDocker
+
+# - stage: Python
+  # jobs:
+  # - job: python
+    # steps:
+    # - task: PythonScript@0
+      # inputs:
+        # scriptSource: 'filePath'
+        # scriptPath: '$(scriptPath)'
+        # pythonInterpreter: '$(pythonInterpreter)'
+  # 
   
          # Run MegaLinter
         # - powershell: |

@@ -1,7 +1,7 @@
-import os
 from credentials import host, user, password, port, auth_plugin
 # my_var = os.environ["MY_VAR"]
 import mysql.connector
+import os
 from mysql.connector import Error, connect
 
 
@@ -22,7 +22,7 @@ try:
         host=host,
         user=user,
         password=password,
-        port=port,
+        port=sqlport,
         auth_plugin=auth_plugin
     ) as connection:
         create_db_query = "CREATE DATABASE online_movie_rating"
