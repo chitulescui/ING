@@ -15,19 +15,24 @@ stages:
 
 - stage: DockerMySql
   jobs:
-    - job: DockerMySql
-      steps:
+    # - job: DockerMySql
+      # steps:
         # Checkout repo
-        - checkout: self
+        # - checkout: self
         # Pull MegaLinter docker image
-        - powershell: docker pull mcr.microsoft.com/mssql/server:2017-latest
-          displayName: DockerMySql
+        # - powershell: docker pull mcr.microsoft.com/mssql/server:2017-latest
+          # displayName: DockerMySql
+
+    - job: BuildDocker
+      steps:
+        - checkout: self
+        - powershell: docker build . -t chitulescui/sqlserver
     - job: StartSql
       steps:
     # Checkout repo
         - checkout: self
         # Pull MegaLinter docker image
-        - powershell: docker run --name some-mysql -p 1433:3306 -e "ACCEPT_EULA=Y" -e MYSQL_ROOT_PASSWORD=$(MYSQL_ROOT_PASSWORD) -d mcr.microsoft.com/mssql/server:2017-latest
+        - powershell: docker run --name some-mysql -p 1433:3306 -e "ACCEPT_EULA=Y" -e MYSQL_ROOT_PASSWORD=$(MYSQL_ROOT_PASSWORD) -d chitulescui/sqlserver
           displayName: DockerMySql
 
 - stage: Python
