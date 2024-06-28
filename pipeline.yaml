@@ -1,7 +1,4 @@
-trigger: 
- branches:
-    include:
-      - main
+trigger: none
 pool:
   name: 'Default'
   demands:
@@ -13,7 +10,7 @@ variables:
 
 resources:
   repositories:
-  - repository: ING # The name used to reference this repository in the checkout step
+  - repository: INGGG # The name used to reference this repository in the checkout step
     type: github
     name: ING
     endpoint: https://github.com/chitulescui/ING
@@ -25,7 +22,7 @@ stages:
   jobs:
   - job: BuildDocker
     steps:
-      - checkout: ING
+      - checkout: INGGG
       - powershell: docker build . -t chitulescui/sqlserver
   # - job: StartSql
     # steps:
