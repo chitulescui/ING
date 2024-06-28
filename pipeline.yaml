@@ -39,7 +39,7 @@ stages:
         scriptSource: 'filePath'
         scriptPath: '$(scriptPath)'
         pythonInterpreter: '$(pythonInterpreter)'
-        arguments: --passwd $(MYSQL_ROOT_PASSWORD)
+  
   
          # Run MegaLinter
         # - powershell: |
