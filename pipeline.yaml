@@ -22,7 +22,7 @@ stages:
   jobs:
   - job: BuildDocker
     steps:
-      - checkout: INGGG
+      - checkout: ING
       - powershell: docker build . -t chitulescui/sqlserver
   # - job: StartSql
     # steps:
