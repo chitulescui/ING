@@ -27,7 +27,7 @@ stages:
   - job: Run_Docker_Container
     steps:
       - checkout: ING
-      - powershell: docker run --name some-mysql -p $(MYPORT):$(PORT) -e $(ACCEPT_EULA) -e MYSQL_ROOT_PASSWORD=$(MYSQL_ROOT_PASSWORD) -d chitulescui/sqlserver
+      - powershell: docker run --name some-mysql -p $(MYPORT):$(SQLPORT) -e $(ACCEPT_EULA) -e MYSQL_ROOT_PASSWORD=$(MYSQL_ROOT_PASSWORD) -d chitulescui/sqlserver
         displayName: DockerMySql
     dependsOn: Docker_Build
 
