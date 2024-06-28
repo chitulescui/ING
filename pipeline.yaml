@@ -14,7 +14,7 @@ resources:
     type: github
     name: ING
     endpoint: chitulescui
-    ref: developer
+    
 
 stages:
 
