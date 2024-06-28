@@ -16,6 +16,7 @@ resources:
   - repository: ING # The name used to reference this repository in the checkout step
     type: github
     name: ING
+    endpoint: https://github.com/chitulescui/ING
     ref: developer
 
 stages:
