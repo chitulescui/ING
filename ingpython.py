@@ -28,7 +28,7 @@ def connect_to_mysql(host, user, password, sqlport, auth_plugin):
 
 
 try:
-    connect_to_mysql(host, user, password, port, auth_plugin)
+    connect_to_mysql(host, user, password, sqlport, auth_plugin)
         # create_db_query = "CREATE DATABASE online_movie_rating"
         # create_table ="CREATE TABLE Person (name VARCHAR(50), age smallint UNSIGNED, personID int PRIMARY KEY AUTO_INCREMENT)"
         # # create_db_queryy="DROP DATABASE online_movie_rating"
