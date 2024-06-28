@@ -17,12 +17,17 @@ try:
         host=host,
         user=user,
         password=password,
+        port=port,
+        auth_plubin=auth_plugin
     ) as connection:
         create_db_query = "CREATE DATABASE online_movie_rating"
         with connection.cursor() as cursor:
             cursor.execute(create_db_query)
+            print("a ajuns pana aici")
 except Error as e:
     print(e)
+
+
 # def connect_to_mysql(host, user, password, port, auth_plugin):
 #     db = mysql.connector.connect(
 #         host=host,
