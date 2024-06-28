@@ -16,41 +16,37 @@ def printfunc():
     for x in cursor:
         print(x)
 
-
-try:
-    with connect(
+def connect_to_mysql(host, user, password, port, auth_plugin):
+    db = mysql.connector.connect(
         host=host,
         user=user,
-        password=password,
-        port=sqlport,
+        passwd=password,
+        port=port,
         auth_plugin=auth_plugin
-    ) as connection:
-        create_db_query = "CREATE DATABASE online_movie_rating"
-        create_table ="CREATE TABLE Person (name VARCHAR(50), age smallint UNSIGNED, personID int PRIMARY KEY AUTO_INCREMENT)"
-        # create_db_queryy="DROP DATABASE online_movie_rating"
-        with connection.cursor() as cursor:
-            # cursor.execute(create_db_query)
-            # cursor.execute(create_db_query)
-            cursor.execute("USE online_movie_rating")
-            cursor.execute(create_table)
-            cursor.execute("DESCRIBE Person")
-            printfunc()
-            print("a ajuns pana aici")
+    )
+    return db
+
+
+try:
+    connect_to_mysql(host, user, password, port, auth_plugin)
+        # create_db_query = "CREATE DATABASE online_movie_rating"
+        # create_table ="CREATE TABLE Person (name VARCHAR(50), age smallint UNSIGNED, personID int PRIMARY KEY AUTO_INCREMENT)"
+        # # create_db_queryy="DROP DATABASE online_movie_rating"
+        # with connection.cursor() as cursor:
+        #     # cursor.execute(create_db_query)
+        #     # cursor.execute(create_db_query)
+        #     cursor.execute("USE online_movie_rating")
+        #     cursor.execute(create_table)
+        #     cursor.execute("DESCRIBE Person")
+        #     printfunc()
+        #     print("a ajuns pana aici")
+    print(db)
 except Error as e:
     print(e)
 
 
 
 
-# def connect_to_mysql(host, user, password, port, auth_plugin):
-#     db = mysql.connector.connect(
-#         host=host,
-#         user=user,
-#         passwd=password,
-#         port=port,
-#         auth_plugin=auth_plugin
-#     )
-#     return db
 
 
 # def connect_to_database(host, user, password, port, auth_plugin, database):
