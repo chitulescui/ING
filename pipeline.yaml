@@ -8,7 +8,7 @@ pool:
     - agent.name -equals SWK
 
 variables:
-- group: INGSWKVAR
+- group: pythonDetails
 
 stages:
 
