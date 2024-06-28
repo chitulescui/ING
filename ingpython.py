@@ -18,7 +18,7 @@ try:
         user=user,
         password=password,
         port=port,
-        auth_plubin=auth_plugin
+        auth_plugin=auth_plugin
     ) as connection:
         create_db_query = "CREATE DATABASE online_movie_rating"
         with connection.cursor() as cursor:
