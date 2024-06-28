@@ -29,7 +29,7 @@ stages:
       - checkout: ING
       - powershell: docker run --name some-mysql -p $(MYPORT):$(PORT) -e $(ACCEPT_EULA) -e MYSQL_ROOT_PASSWORD=$(MYSQL_ROOT_PASSWORD) -d chitulescui/sqlserver
         displayName: DockerMySql
-    dependsOn: BuildDocker
+    dependsOn: Docker_Build
 
 # - stage: Python
   # jobs:
