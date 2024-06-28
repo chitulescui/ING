@@ -1,8 +1,9 @@
 import os
 
 # my_var = os.environ["MY_VAR"]
-
 import mysql.connector
+from mysql.connector import Error, connect
+
 
 host = os.environ.get("HOST")
 user = os.environ.get("USER")
@@ -11,16 +12,26 @@ port = int(os.environ.get("PORT"))
 auth_plugin = os.environ.get("AUTH_PLUGIN")
 # database = os.environ.get("DATABASE")
 
-
-def connect_to_mysql(host, user, password, port, auth_plugin):
-    db = mysql.connector.connect(
+try:
+    with connect(
         host=host,
         user=user,
-        passwd=password,
-        port=port,
-        auth_plugin=auth_plugin
-    )
-    return db
+        password=password,
+    ) as connection:
+        create_db_query = "CREATE DATABASE online_movie_rating"
+        with connection.cursor() as cursor:
+            cursor.execute(create_db_query)
+except Error as e:
+    print(e)
+# def connect_to_mysql(host, user, password, port, auth_plugin):
+#     db = mysql.connector.connect(
+#         host=host,
+#         user=user,
+#         passwd=password,
+#         port=port,
+#         auth_plugin=auth_plugin
+#     )
+#     return db
 
 
 # def connect_to_database(host, user, password, port, auth_plugin, database):
@@ -40,7 +51,7 @@ def connect_to_mysql(host, user, password, port, auth_plugin):
 #     mycursor.execute("CREATE DATABASE testdatabase")
 
 
-connect_to_mysql(host, user, password, port, auth_plugin)
+# connect_to_mysql(host, user, password, port, auth_plugin)
 # create_a_database()
 # connect_to_database(host, user, password, port, auth_plugin, database)
 
