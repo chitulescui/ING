@@ -11,7 +11,7 @@ variables:
 resources:
   repositories:
   - repository: INGGG # The name used to reference this repository in the checkout step
-    name: ING
+  - name: ING
 
 stages:
 
