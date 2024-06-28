@@ -30,6 +30,7 @@ try:
         with connection.cursor() as cursor:
             cursor.execute(create_db_query)
             # cursor.execute(create_db_query)
+            cursor.execute("USE online_movie_rating")
             cursor.execute("CREATE TABLE Person (name VARCHAR(50), age smallint UNSIGNED, personID int PRIMARY KEY AUTO_INCREMENT)")
             cursor.execute("DESCRIBE Person")
             printfunc()
