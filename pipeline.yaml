@@ -18,21 +18,19 @@ resources:
 
 stages:
 
-# - stage: Build_And_Run_Docker_Image
-  # jobs:
-  # - job: Docker_Build
-    # steps:
-      # - checkout: ING
-      # - powershell: docker build . -t chitulescui/sqlserver
-  # - job: Run_Docker_Container
-    # steps:
-      # - checkout: ING
-      # - powershell: docker run --name some-mysql -p $(MYPORT):$(MYPORT) -e $(ACCEPT_EULA) -e "MSSQL_SA_PASSWORD=$(MSSQL_ROOT_PASSWORD)" -d chitulescui/sqlserver
-                                                           
+- stage: Build_And_Run_Docker_Image
+  jobs:
+  - job: Docker_Build
+    steps:
+      - checkout: ING
+      - powershell: docker build . -t chitulescui/sqlserver
+  - job: Run_Docker_Container
+    steps:
+      - checkout: ING
+      - powershell: docker run --name some-mysql -p $(MYPORT):$(MYPORT) -e $(ACCEPT_EULA) -e "MSSQL_SA_PASSWORD=$(MSSQL_ROOT_PASSWORD)" -d chitulescui/sqlserver
+    displayName: DockerMySql
+    dependsOn: Docker_Build
 
-        # displayName: DockerMySql
-    # dependsOn: Docker_Build
-# 
 - stage: Run_Python_Script
   jobs:
   - job: Python
@@ -43,6 +41,10 @@ stages:
         scriptPath: '$(scriptPath)'
         pythonInterpreter: '$(pythonInterpreter)'
 
+- stage: Publish_Python_Artifact
+  jobs: 
+  - job: Publish_Python_Artifact
+    steps:
     - task: PublishPipelineArtifact@1
       condition: succeededOrFailed()
       displayName: uploadjson
