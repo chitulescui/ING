@@ -3,7 +3,7 @@ import json
 import os
 from credentials import SERVER, PASSWORD, USERNAME, DATABASE, TABLE
 
-# DATABASE="ingdata4"
+# DATABASE="test2"
 # TABLE="Person1"
 # SERVER=".,1433"
 # PASSWORD="Cirica01@@"
@@ -35,17 +35,24 @@ def create_connection(server, username, password):
 
 
 # Create the database
-def create_database(DATABASE,TABLE):
+def create_database(DATABASE):
     try:
         cursor.execute(f"CREATE DATABASE {DATABASE}")
         print("Database created or already exists.")
         cursor.execute(f"USE {DATABASE}")
         print(f"Using the {DATABASE} database.")
+    except pyodbc.Error as e:
+        print("Database cannot be created:", e)
+        return None
+    
+def create_table(TABLE):
+    try: 
         cursor.execute(f"CREATE TABLE {TABLE} (name VARCHAR(50), age smallint, city VARCHAR(50))")
         print(f"Table {TABLE} created ")
     except pyodbc.Error as e:
-        print("Cannot be created:", e)
+        print("Table cannot be created:", e)
         return None
+
 
 
 def populate_table(names, ages, cities):
@@ -54,68 +61,32 @@ def populate_table(names, ages, cities):
         raise ValueError("All input lists must have the same length")
     for name, age, city in zip(names, ages, cities):
         cursor.execute(f"INSERT INTO {TABLE} (name, age, city) VALUES (?, ?, ?)", (name, age, city))
+    print("Table populated")
+
+
+def export_table():
+    try:
+        cursor.execute(f"SELECT name AS 'name', age AS 'age', city AS 'city' FROM {TABLE} FOR JSON PATH;")
+        json_result = cursor.fetchone()[0]
+        json.loads(json_result)
+        with open('ingdatabase.json', 'w') as f:
+            json.dump(json.loads(json_result), f, indent=4)
+    except pyodbc.Error as e:
+        print("JSON cannot be created:", e)
+        return None
+
+
+#Function Calls 
 
 create_connection(SERVER, USERNAME, PASSWORD)
-create_database(DATABASE,TABLE)
+create_database(DATABASE)
+create_table(TABLE)
 populate_table(names,ages,cities)
-
-
-cursor.execute(f"SELECT name AS 'name', age AS 'age', city AS 'city' FROM {TABLE} FOR JSON PATH;")
-json_result = cursor.fetchone()[0]
-json.loads(json_result)
-with open('ingdatabase.json', 'w') as f:
-    json.dump(json.loads(json_result), f, indent=4)
-
-print("haidaviatamea")
-
-
-# def create_database():
-#     database_name = input("Choose a name for your database")
-#     if type(database_name) is not str:
-#         print("Your Database name is not valid, string needed")
-#         create_database()
-#     elif len(database_name) < 8 or len(database_name) > 20:
-#         print("Your Database name should contain a maximum of 20 characters and a minimum of 8 characters")
-#         create_database()
-#     elif database_name:
-#         print("Invalid input, please repeat the process")
-#         create_database()
-#     else:
-#         with connection.cursor() as cursor:
-#             cursor.execute(f"CREATE DATABASE {database_name} ")
-#             return database_name
-
-# try:
-
-    # create_database()
-
-#
-# except Error as e:
-#     print(e)
-#
-# create_db_query = "CREATE DATABASE online_movie_rating"
-#         create_table ="CREATE TABLE Person (name VARCHAR(50), age smallint UNSIGNED, personID int PRIMARY KEY AUTO_INCREMENT)"
-#         # create_db_queryy="DROP DATABASE online_movie_rating"
-#         with connection.cursor() as cursor:
-#             # cursor.execute(create_db_query)
-#             # cursor.execute(create_db_query)
-#             cursor.execute("USE online_movie_rating")
-#             cursor.execute(create_table)
-#             cursor.execute("DESCRIBE Person")
-#             printfunc()
-#             print("a ajuns pana aici")
+export_table()
 
 
 
 
 
-# def create_a_database():
-#     mycursor = db.cursor()
-#     mycursor.execute("CREATE DATABASE testdatabase")
-
-
-# connect_to_mysql(host, user, password, port, auth_plugin)
-# create_a_database()
-# connect_to_database(host, user, password, port, auth_plugin, database)
 
 
