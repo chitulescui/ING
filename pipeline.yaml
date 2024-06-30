@@ -5,8 +5,8 @@ pool:
     - agent.name -equals SWK
 
 variables:
-- group: pythonDetails
-- group: sqlDetails
+- group: pythonVariables
+- group: sqlVariables
 
 resources:
   repositories:

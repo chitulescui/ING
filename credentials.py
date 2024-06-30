@@ -6,4 +6,5 @@ PASSWORD=os.environ.get('MSSQL_ROOT_PASSWORD')
 USERNAME=os.environ.get("USER")
 DATABASE=os.environ.get('DATABASE')
 TABLE=os.environ.get('TABLE')
+JSON_NAME=os.environ.get('JSON_NAME')
 
