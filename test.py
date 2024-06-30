@@ -1,6 +1,5 @@
-import mysql.connector
+import pyodbc
 import os
-from mysql.connector import Error, connect
 host = "127.0.0.1"
 user = "root"
 password = "Cirica01@@"
