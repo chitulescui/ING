@@ -35,15 +35,19 @@ def create_connection(server, username, password):
 
 # Create the database
 def create_database(DATABASE,TABLE):
-    cursor.execute(f"CREATE DATABASE IF NOT EXISTS {DATABASE}")
-    print("Database created or already exists.")
-    cursor.execute(f"USE {DATABASE}")
-    print("Using the database.")
+    try:
+        cursor.execute(f"CREATE DATABASE {DATABASE}")
+        print("Database created or already exists.")
+        cursor.execute(f"USE {DATABASE}")
+        print("Using the database.")
+    except pyodbc.Error as e:
+        return None
+        
     try:
         cursor.execute(f"CREATE {TABLE}  (name VARCHAR(50), age smallint, city VARCHAR(50) )")
         print("Table created ")
     except pyodbc.Error as e:
-        print("Error connecting to database:", e)
+        print("Error creating the database:", e)
         return None
 
 
