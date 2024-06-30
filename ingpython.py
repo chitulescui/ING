@@ -8,7 +8,6 @@ import os
 # USERNAME="sa"
 
 def create_connection(driver, server, username, password):
-    global connection
     connection_str = (
         f'DRIVER={driver};'
         f'SERVER={server};'
@@ -17,7 +16,7 @@ def create_connection(driver, server, username, password):
         f'TrustServerCertificate=yes;'
     )
     try:
-        # global connection
+        global connection
         connection = pyodbc.connect(connection_str)
         print("Connection successful!")
         connection.autocommit = True
