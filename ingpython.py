@@ -66,7 +66,7 @@ populate_table(names,ages,cities)
 
 
 
-cursor.execute("SELECT name AS 'name', age AS 'age', city AS 'city' FROM Person1 FOR JSON PATH;")
+cursor.execute(f"SELECT name AS 'name', age AS 'age', city AS 'city' FROM {Table} FOR JSON PATH;")
 json_result = cursor.fetchone()[0]
 json.loads(json_result)
 with open('ingdatabase.json', 'w') as f:
