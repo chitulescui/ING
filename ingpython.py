@@ -7,7 +7,7 @@ import os
 # PASSWORD="Cirica01@@"
 # USERNAME="sa"
 
-def create_connection(driver,server, username, password):
+def create_connection(driver, server, username, password):
     global connection
     connection_str = (
         f'DRIVER={driver};'
@@ -25,8 +25,10 @@ def create_connection(driver,server, username, password):
     except pyodbc.Error as e:
         print("Error connecting to database:", e)
         return None
-create_connection(DRIVER, SERVER, USERNAME, PASSWORD)
 
+
+
+create_connection(DRIVER, SERVER, USERNAME, PASSWORD)
 cursor = connection.cursor()
 
 cursor.execute("CREATE DATABASE ingdatabase3")
