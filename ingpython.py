@@ -1,14 +1,18 @@
 import pyodbc
 import json
-from credentials import SERVER, PASSWORD, USERNAME, DRIVER
 import os
+from credentials import SERVER, PASSWORD, USERNAME, DATABASE, TABLE
+
 
 # SERVER=".,1433"
 # PASSWORD="Cirica01@@"
 # USERNAME="sa"
+names = ['Alice', 'Bob', 'Charlie']
+ages = [30, 25, 22]
+cities = ['New York', 'Los Angeles', 'Chicago']
 
 def create_connection(server, username, password):
-    global connection
+    global connection, cursor
     connection_str = (
         f'DRIVER={{ODBC Driver 18 for SQL Server}};'
         f'SERVER={server};'
@@ -21,25 +25,44 @@ def create_connection(server, username, password):
         connection = pyodbc.connect(connection_str)
         print("Connection successful!")
         connection.autocommit = True
-        return connection
+        cursor=connection.cursor()
+        return connection, cursor
     except pyodbc.Error as e:
         print("Error connecting to database:", e)
         return None
 
 
 
+# Create the database
+def create_database(DATABASE,TABLE):
+    cursor.execute(f"CREATE DATABASE IF NOT EXISTS {DATABASE}")
+    print("Database created or already exists.")
+    cursor.execute(f"USE {DATABASE}")
+    print("Using the database.")
+    try:
+        cursor.execute(f"CREATE {TABLE}  (name VARCHAR(50), age smallint, city VARCHAR(50) )")
+        print("Table created ")
+    except pyodbc.Error as e:
+        print("Error connecting to database:", e)
+        return None
+
+
+
+def populate_table(names, ages, cities):
+    # Ensure the lists have the same length
+    if not (len(names) == len(ages) == len(cities)):
+        raise ValueError("All input lists must have the same length")
+    for name, age, city in zip(names, ages, cities):
+        cursor
+        cursor.execute(f"INSERT INTO {TABLE} (name, age, city) VALUES (?, ?, ?)", (name, age, city))
+
 create_connection(SERVER, USERNAME, PASSWORD)
+create_database(DATABASE,TABLE)
+populate_table(names,ages,cities)
 
-cursor = connection.cursor()
 
-cursor.execute("CREATE DATABASE ingdatabase")
-# cursor.execute("DROP DATABASE ingdatabase3")
-cursor.execute("USE ingdatabase")
-cursor.execute("CREATE TABLE Person1 (name VARCHAR(50), age smallint, city VARCHAR(50) )")
-cursor.execute("INSERT INTO Person1 (name, age, city) VALUES ('Alice', 30, 'New York');")
-cursor.execute("INSERT INTO Person1 (name, age, city) VALUES ('Bob', 25, 'Los Angeles');")
-cursor.execute("INSERT INTO Person1 (name, age, city) VALUES ('Charlie', 22, 'Chicago');")
-coco=cursor.execute("SELECT name AS 'name', age AS 'age', city AS 'city' FROM Person1 FOR JSON PATH;")
+
+cursor.execute("SELECT name AS 'name', age AS 'age', city AS 'city' FROM Person1 FOR JSON PATH;")
 json_result = cursor.fetchone()[0]
 json.loads(json_result)
 with open('ingdatabase.json', 'w') as f:
