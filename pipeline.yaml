@@ -28,7 +28,7 @@ stages:
     steps:
       - checkout: ING
       - powershell: docker run --name some-mysql -p $(MYPORT):$(MYPORT) -e $(ACCEPT_EULA) -e "MSSQL_SA_PASSWORD=$(MSSQL_ROOT_PASSWORD)" -d chitulescui/sqlserver
-    displayName: DockerMySql
+    displayName: Docker_Run
     dependsOn: Docker_Build
 
 - stage: Run_Python_Script
@@ -47,7 +47,7 @@ stages:
     steps:
     - task: PublishPipelineArtifact@1
       condition: succeededOrFailed()
-      displayName: uploadjson
+      displayName: Upload_JSON_File
       inputs:
        targetPath: "$(System.DefaultWorkingDirectory)/ingdatabase.json"
        artifactName: ingdatabase

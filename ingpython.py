@@ -65,7 +65,7 @@ def populate_table(names, ages, cities):
     for name, age, city in zip(names, ages, cities):
         cursor.execute(f"""INSERT INTO {TABLE} (name, age, city) 
                        VALUES (?, ?, ?)""", (name, age, city))
-    print("Table populated")
+    print("Table populated successfully!")
 
 
 def export_table():
@@ -74,17 +74,25 @@ def export_table():
     json_result = cursor.fetchone()[0]
     with open(f'{JSON_NAME}.json', 'w') as f:
         json.dump(json.loads(json_result), f, indent=4)
+        print(f"{JSON_NAME} file created successfully!")
 
-# def close_connection():
+def close_connection():
+    cursor.close()
+    connection.close()
 
 
 #Function Calls 
-
-create_connection(SERVER, USERNAME, PASSWORD)
-create_database(DATABASE)
-create_table(TABLE)
-populate_table(names,ages,cities)
-export_table()
+try:
+    create_connection(SERVER, USERNAME, PASSWORD)
+    create_database(DATABASE)
+    create_table(TABLE)
+    populate_table(names,ages,cities)
+    export_table()
+except pyodbc.Error as e:
+    print("You have an error:", e)
+finally: 
+    close_connection()
+    print("Connection finally closed")
 
 
 
