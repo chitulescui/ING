@@ -26,7 +26,8 @@ def create_connection(driver,server, username, password):
         print("Error connecting to database:", e)
         return None
 create_connection(DRIVER, SERVER, USERNAME, PASSWORD)
-cursor = create_connection(DRIVER, SERVER, USERNAME, PASSWORD).cursor()
+
+cursor = connection.cursor()
 
 cursor.execute("CREATE DATABASE ingdatabase3")
 # cursor.execute("DROP DATABASE ingdatabase3")
