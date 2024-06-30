@@ -32,16 +32,16 @@ stages:
 
         displayName: DockerMySql
     dependsOn: Docker_Build
-
-# - stage: Run_Python_Script
-  # jobs:
-  # - job: Python
-    # steps:
-    # - task: PythonScript@0
-      # inputs:
-        # scriptSource: 'filePath'
-        # scriptPath: '$(scriptPath)'
-        # pythonInterpreter: '$(pythonInterpreter)'
+# 
+- stage: Run_Python_Script
+  jobs:
+  - job: Python
+    steps:
+    - task: PythonScript@0
+      inputs:
+        scriptSource: 'filePath'
+        scriptPath: '$(scriptPath)'
+        pythonInterpreter: '$(pythonInterpreter)'
   
   
          # Run MegaLinter
