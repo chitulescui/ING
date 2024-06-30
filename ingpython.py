@@ -3,7 +3,8 @@ import json
 import os
 from credentials import SERVER, PASSWORD, USERNAME, DATABASE, TABLE
 
-
+# DATABASE="ingdata4"
+# TABLE="Person1"
 # SERVER=".,1433"
 # PASSWORD="Cirica01@@"
 # USERNAME="sa"
@@ -39,17 +40,12 @@ def create_database(DATABASE,TABLE):
         cursor.execute(f"CREATE DATABASE {DATABASE}")
         print("Database created or already exists.")
         cursor.execute(f"USE {DATABASE}")
-        print("Using the database.")
+        print(f"Using the {DATABASE} database.")
+        cursor.execute(f"CREATE TABLE {TABLE} (name VARCHAR(50), age smallint, city VARCHAR(50))")
+        print(f"Table {TABLE} created ")
     except pyodbc.Error as e:
+        print("Cannot be created:", e)
         return None
-        
-    try:
-        cursor.execute(f"CREATE {TABLE}  (name VARCHAR(50), age smallint, city VARCHAR(50) )")
-        print("Table created ")
-    except pyodbc.Error as e:
-        print("Error creating the database:", e)
-        return None
-
 
 
 def populate_table(names, ages, cities):
@@ -57,7 +53,6 @@ def populate_table(names, ages, cities):
     if not (len(names) == len(ages) == len(cities)):
         raise ValueError("All input lists must have the same length")
     for name, age, city in zip(names, ages, cities):
-        cursor
         cursor.execute(f"INSERT INTO {TABLE} (name, age, city) VALUES (?, ?, ?)", (name, age, city))
 
 create_connection(SERVER, USERNAME, PASSWORD)
@@ -65,8 +60,7 @@ create_database(DATABASE,TABLE)
 populate_table(names,ages,cities)
 
 
-
-cursor.execute(f"SELECT name AS 'name', age AS 'age', city AS 'city' FROM {Table} FOR JSON PATH;")
+cursor.execute(f"SELECT name AS 'name', age AS 'age', city AS 'city' FROM {TABLE} FOR JSON PATH;")
 json_result = cursor.fetchone()[0]
 json.loads(json_result)
 with open('ingdatabase.json', 'w') as f:
