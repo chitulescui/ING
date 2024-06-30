@@ -7,7 +7,8 @@ pool:
 variables:
 - group: pythonVariables
 - group: sqlVariables
-  MSSQL_ROOT_PASSWORD: $(MSSQL_ROOT_PASSWORD)
+- name: MSSQL_ROOT_PASSWORD
+  value: $(MSSQL_ROOT_PASSWORD)
 
 resources:
   repositories:
