@@ -42,17 +42,10 @@ stages:
         scriptSource: 'filePath'
         scriptPath: '$(scriptPath)'
         pythonInterpreter: '$(pythonInterpreter)'
-  
-  
-         # Run MegaLinter
-        # - powershell: |
-            # docker run -v $(System.DefaultWorkingDirectory):/tmp/lint -e SYSTEM_ACCESSTOKEN=$(System.AccessToken) -e GIT_AUTHORIZATION_BEARER=$(System.AccessToken) --name MegaLinter oxsecurity/megalinter:latest
-          # displayName: Run MegaLinter
-        # 
-        # Upload MegaLinter reports
-        # - task: PublishPipelineArtifact@1
-          # condition: succeededOrFailed()
-          # displayName: Upload MegaLinter reports
-          # inputs:
-            # targetPath: "$(System.DefaultWorkingDirectory)/megalinter-reports/"
-            # artifactName: MegaLinterReport
+
+    - task: PublishPipelineArtifact@1
+      condition: succeededOrFailed()
+      displayName: uploadjson
+      inputs:
+       targetPath: "$(System.DefaultWorkingDirectory)/ING/"
+       artifactName: ingdatabase
