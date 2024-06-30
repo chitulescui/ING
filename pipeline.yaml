@@ -47,5 +47,5 @@ stages:
       condition: succeededOrFailed()
       displayName: uploadjson
       inputs:
-       targetPath: "$(System.DefaultWorkingDirectory)/"
+       targetPath: "$(System.DefaultWorkingDirectory)/ingdatabase.json"
        artifactName: ingdatabase
