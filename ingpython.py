@@ -32,13 +32,15 @@ create_connection(SERVER, USERNAME, PASSWORD)
 
 cursor = connection.cursor()
 
-cursor.execute("CREATE DATABASE ingdatabase4")
+cursor.execute("CREATE DATABASE ingdatabase")
 # cursor.execute("DROP DATABASE ingdatabase3")
-cursor.execute("USE ingdatabase4")
+cursor.execute("USE ingdatabase")
 cursor.execute("CREATE TABLE Person1 (name VARCHAR(50), age smallint, city VARCHAR(50) )")
-cursor.execute("INSERT INTO Person1 (name, age, city) VALUES ('Cocosu', 42, 'Cornu');")
+cursor.execute("INSERT INTO Person1 (name, age, city) VALUES ('Alice', 30, 'New York');")
+cursor.execute("INSERT INTO Person1 (name, age, city) VALUES ('Bob', 25, 'Los Angeles');")
+cursor.execute("INSERT INTO Person1 (name, age, city) VALUES ('Charlie', 22, 'Chicago');")
 coco=cursor.execute("SELECT name AS 'name', age AS 'age', city AS 'city' FROM Person1 FOR JSON PATH;")
-json_result = cursor.fetchone()
+json_result = cursor.fetchone()[0]
 json.loads(json_result)
 with open('ingdatabase.json', 'w') as f:
     json.dump(json.loads(json_result), f, indent=4)
