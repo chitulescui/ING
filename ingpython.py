@@ -42,6 +42,8 @@ json.loads(json_result)
 with open('ingdatabase.json', 'w') as f:
     json.dump(json.loads(json_result), f, indent=4)
 
+print("haidaviatamea")
+
 
 # def create_database():
 #     database_name = input("Choose a name for your database")
