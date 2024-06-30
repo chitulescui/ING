@@ -3,7 +3,7 @@ import json
 import os
 from credentials import SERVER, PASSWORD, USERNAME, DATABASE, TABLE
 
-# DATABASE="test2"
+# DATABASE="test23"
 # TABLE="Person1"
 # SERVER=".,1433"
 # PASSWORD="Cirica01@@"
@@ -65,15 +65,12 @@ def populate_table(names, ages, cities):
 
 
 def export_table():
-    try:
-        cursor.execute(f"SELECT name AS 'name', age AS 'age', city AS 'city' FROM {TABLE} FOR JSON PATH;")
-        json_result = cursor.fetchone()[0]
-        json.loads(json_result)
-        with open('ingdatabase.json', 'w') as f:
-            json.dump(json.loads(json_result), f, indent=4)
-    except pyodbc.Error as e:
-        print("JSON cannot be created:", e)
-        return None
+    cursor.execute(f"SELECT name AS 'name', age AS 'age', city AS 'city' FROM {TABLE} FOR JSON PATH;")
+    json_result = cursor.fetchone()[0]
+    with open('ingdatabases.json', 'w') as f:
+        json.dump(json.loads(json_result), f, indent=4)
+
+# def close_connection():
 
 
 #Function Calls 
