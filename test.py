@@ -70,18 +70,26 @@ def table_structure():
        mycursor.execute(f"CREATE TABLE {tabel} (name VARCHAR(50), age smallint UNSIGNED, city VARCHAR(50))")
 
 
+
+def insert_info():
+    mycursor.execute("USE cacatdebazadedate")
+    mycursor.execute(f"INSERT INTO chitulescu (name, age, city) VALUES ('guta', 31, 'Bucuresti');")
+
+    mycursor.execute("SELECT * FROM chitulescu")
 def tojson():
-    mycursor.execute("SELECT name AS 'info.name',age AS 'info.age', city AS 'info.city' FROM sakila FOR JSON PATH;")
+    mycursor.execute("SELECT name AS 'name',age AS 'age', city AS 'city' FROM chitulescu FOR JSON PATH;")
 
 tojson()
 
 cocds= mycursor.execute("SELECT table_name FROM information_schema.tables WHERE table_type='BASE TABLE'")
 
+    connection.commit()
     
 try:
     connect_to_database(host, user, password, sqlport, auth_plugin)
     create_database(connection)
     table_structure()
+
 
 except Error as e:
     print(e)
