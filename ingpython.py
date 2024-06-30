@@ -1,22 +1,43 @@
 import pyodbc
-from credentials import SERVER, PASSWORD, USERNAME
+import json
+from credentials import SERVER, PASSWORD, USERNAME, DRIVER
 import os
 
-def create_connection(server, username, password):
+# SERVER=".,1433"
+# PASSWORD="Cirica01@@"
+# USERNAME="sa"
+
+def create_connection(driver,server, username, password):
+    global connection
     connection_str = (
-        f'DRIVER={{ODBC Driver 18 for SQL Server}};'
+        f'DRIVER={driver};'
         f'SERVER={server};'
         f'UID={username};'
         f'PWD={password};'
         f'TrustServerCertificate=yes;'
     )
     try:
+        # global connection
         connection = pyodbc.connect(connection_str)
         print("Connection successful!")
+        connection.autocommit = True
         return connection
     except pyodbc.Error as e:
         print("Error connecting to database:", e)
         return None
+create_connection(DRIVER, SERVER, USERNAME, PASSWORD)
+cursor = create_connection(DRIVER, SERVER, USERNAME, PASSWORD).cursor()
+
+cursor.execute("CREATE DATABASE ingdatabase3")
+# cursor.execute("DROP DATABASE ingdatabase3")
+cursor.execute("USE ingdatabase3")
+cursor.execute("CREATE TABLE Person1 (name VARCHAR(50), age smallint, city VARCHAR(50) )")
+cursor.execute("INSERT INTO Person1 (name, age, city) VALUES ('Cocosu', 42, 'Cornu');")
+coco=cursor.execute("SELECT name AS 'name', age AS 'age', city AS 'city' FROM Person1 FOR JSON PATH;")
+json_result = cursor.fetchone()[0]
+json.loads(json_result)
+with open('ingdatabase.json', 'w') as f:
+    json.dump(json.loads(json_result), f, indent=4)
 
 
 # def create_database():
@@ -36,7 +57,7 @@ def create_connection(server, username, password):
 #             return database_name
 
 # try:
-    create_connection(SERVER, USERNAME, PASSWORD)
+
     # create_database()
 
 #
