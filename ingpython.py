@@ -67,7 +67,7 @@ def populate_table(names, ages, cities):
 def export_table():
     cursor.execute(f"SELECT name AS 'name', age AS 'age', city AS 'city' FROM {TABLE} FOR JSON PATH;")
     json_result = cursor.fetchone()[0]
-    with open('ingdatabases.json', 'w') as f:
+    with open('ingdatabase.json', 'w') as f:
         json.dump(json.loads(json_result), f, indent=4)
 
 # def close_connection():
