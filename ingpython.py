@@ -7,9 +7,9 @@ import os
 # PASSWORD="Cirica01@@"
 # USERNAME="sa"
 
-def create_connection(driver, server, username, password):
+def create_connection(server, username, password):
     connection_str = (
-        f'DRIVER={driver};'
+        f'DRIVER={{ODBC Driver 18 for SQL Server}};'
         f'SERVER={server};'
         f'UID={username};'
         f'PWD={password};'
@@ -27,7 +27,8 @@ def create_connection(driver, server, username, password):
 
 
 
-create_connection(DRIVER, SERVER, USERNAME, PASSWORD)
+create_connection(SERVER, USERNAME, PASSWORD)
+
 cursor = connection.cursor()
 
 cursor.execute("CREATE DATABASE ingdatabase3")
