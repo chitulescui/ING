@@ -2,7 +2,7 @@ import os
 
 
 SERVER=os.environ.get('HOST')
-PASSWORD=os.environ.get('MSSQL_ROOT_PASSWORD')
+PASSWORD=os.environ.get('$(MSSQL_ROOT_PASSWORD)')
 USERNAME=os.environ.get("USER")
 DATABASE=os.environ.get('DATABASE')
 TABLE=os.environ.get('TABLE')
