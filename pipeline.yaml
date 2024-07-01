@@ -35,15 +35,11 @@ stages:
   jobs:
   - job: Python
     steps:
-    # - powershell: |
-        # Write-Host "##vso[task.setvariable variable=passwordd;issecret=true]MSSQL_ROOT_PASSWORD"
     - task: PythonScript@0
       inputs:
         scriptSource: 'filePath'
         scriptPath: '$(scriptPath)'
         pythonInterpreter: '$(pythonInterpreter)'
-      # env:
-        # passwordd: $(MSSQL_ROOT_PASSWORD)
 
 - stage: Publish_Python_Artifact
   jobs: 
