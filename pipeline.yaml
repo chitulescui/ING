@@ -1,23 +1,53 @@
-trigger: 
- branches:
-    include:
-      - main
+trigger: none
 pool:
   name: 'Default'
   demands:
     - agent.name -equals SWK
 
 variables:
-- group: INGSWKVAR
+- group: pythonVariables
+- group: sqlVariables
+
+resources:
+  repositories:
+  - repository: ING # The name used to reference this repository in the checkout step
+    type: github
+    name: chitulescui/ING
+    endpoint: chitulescui
+    ref: developer   
 
 stages:
 
-- stage: Python
+- stage: Build_And_Run_Docker_Image
   jobs:
-  - job: python
+  - job: Docker_Build
+    steps:
+      - checkout: ING
+      - powershell: docker build . -t chitulescui/sqlserver
+  - job: Run_Docker_Container
+    steps:
+      - checkout: ING
+      - powershell: docker run --name some-mysql -p $(PORT):$(PORT) -e $(ACCEPT_EULA) -e "MSSQL_SA_PASSWORD=$(MSSQL_ROOT_PASSWORD)" -d chitulescui/sqlserver
+    displayName: Docker_Run
+    dependsOn: Docker_Build
+# 
+- stage: Run_Python_Script
+  jobs:
+  - job: Python
     steps:
     - task: PythonScript@0
       inputs:
         scriptSource: 'filePath'
         scriptPath: '$(scriptPath)'
         pythonInterpreter: '$(pythonInterpreter)'
+
+- stage: Publish_Python_Artifact
+  jobs: 
+  - job: Publish_Python_Artifact
+    steps:
+    - task: PublishPipelineArtifact@1
+      condition: succeededOrFailed()
+      displayName: Upload_JSON_File
+      inputs:
+       targetPath: "$(System.DefaultWorkingDirectory)/ingdatabase.json"
+       artifactName: ingdatabase
