@@ -43,7 +43,7 @@ stages:
         scriptPath: '$(scriptPath)'
         pythonInterpreter: '$(pythonInterpreter)'
       env:
-      passwordd: $(MSSQL_ROOT_PASSWORD)
+        passwordd: $(MSSQL_ROOT_PASSWORD)
 
 - stage: Publish_Python_Artifact
   jobs: 
