@@ -1,4 +1,4 @@
-import pyodbc
+import pyodbc, json
 import json
 import os
 from credentials import SERVER, PASSWORD, USERNAME, DATABASE, TABLE, JSON_NAME
@@ -11,6 +11,7 @@ from credentials import SERVER, PASSWORD, USERNAME, DATABASE, TABLE, JSON_NAME
 names = ['Alice', 'Bob', 'Charlie']
 ages = [30, 25, 22]
 cities = ['New York', 'Los Angeles', 'Chicago']
+tables = ['First','Second','Third']
 
 def create_connection(server, username, password):
     global connection, cursor
