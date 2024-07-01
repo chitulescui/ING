@@ -1,24 +1,13 @@
 #Import Libraries 
-
 import pyodbc, json, os, random
 from os.path import exists
 from credentials import SERVER, PASSWORD, USERNAME, DATABASE, JSON_NAME
 from variables import names, ages, cities, tables
 
-#
-# SERVER=".,1433"
-# PASSWORD="Cirica01@@"
-# USERNAME="sa"
-# DATABASE="newdatabase"
-# JSON_NAME="newfile.json"
-# names = ['Alice', 'Bob', 'Charlie']
-# ages = [30, 25, 22]
-# cities = ['New York', 'Los Angeles', 'Chicago']
-# tables = ['First','Second','Third']
-
 #Create the connection to SQL Server
+
 def create_connection(server, username, password):
-    global connection, cursor
+    global connection, cursor                       #Globally declared variables in order to use them in the next functions.
     connection_str = (
         f'DRIVER={{ODBC Driver 18 for SQL Server}};'
         f'SERVER={server};'
@@ -27,11 +16,10 @@ def create_connection(server, username, password):
         f'TrustServerCertificate=yes;'
     )
     try:
-
-        connection = pyodbc.connect(connection_str)
+        connection = pyodbc.connect(connection_str)  #Establish the connection with the Database.
         print("Connection successful!")
         connection.autocommit = True
-        cursor=connection.cursor()
+        cursor=connection.cursor()                   #Creating the cursor in order to execute next SQL queries 
         return connection, cursor
     except pyodbc.Error as e:
         print("Error connecting to database:", e)
@@ -39,8 +27,9 @@ def create_connection(server, username, password):
 
 
 # Create and select the Database.
-def create_database(DATABASE):
-    try:
+
+def create_database(DATABASE):                       
+    try:                                              #Creating the database and checks if the database already exists or not. 
         cursor.execute(f"""
                         BEGIN CREATE DATABASE {DATABASE}
                         END""")
@@ -54,8 +43,9 @@ def create_database(DATABASE):
             return None
 
 #Create the tables.
-def create_table(tables):
-    try:
+
+def create_table(tables):                              
+    try:                                               #Creating the table and checks if the table already exists or not in the database.
         for table in tables:
              cursor.execute(f"""CREATE TABLE {table} 
                             (name VARCHAR(50), 
@@ -69,8 +59,9 @@ def create_table(tables):
 
 
 #Populate the tables.
-def populate_tables(names, ages, cities):
-    try:
+
+def populate_tables(names, ages, cities):               
+    try:                                               #Populate the table with values from 3 lists(names, ages, cities).
         for table in tables:
             # Ensure the lists have the same length
             if not (len(names) == len(ages) == len(cities)):
@@ -89,6 +80,7 @@ def populate_tables(names, ages, cities):
 
 
 #Export table in JSON format.
+
 def export_table():
     try:
         file_exists = os.path.exists(f'{JSON_NAME}') #Check if the file with the same name exists or not.
@@ -108,24 +100,26 @@ def export_table():
 
 
 #Close the connection with the Database.
+
 def close_connection():
     cursor.close()
     connection.close()
 
 
 #Call the functions. 
+
 try:
-    create_connection(SERVER, USERNAME, PASSWORD)
-    create_database(DATABASE)
-    create_table(tables)
-    populate_tables(names,ages,cities)
-    export_table()
+    create_connection(SERVER, USERNAME, PASSWORD)       #Establish Connection
+    create_database(DATABASE)                           #Create Database
+    create_table(tables)                                #Create Tables
+    populate_tables(names,ages,cities)                  #Populate Tables
+    export_table()                                      #Export one of the Tables
 except pyodbc.OperationalError as e:
     print("Could not establish connection: "+ str(e))
 except pyodbc.Error as e:
     print("You have an error:", e)
 finally:
-    close_connection()
+    close_connection()                                  #Close Connection
     print("Connection closed: finally")
 
 
