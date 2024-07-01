@@ -1,3 +1,5 @@
+#Import Libraries 
+
 import pyodbc, json, os
 from credentials import SERVER, PASSWORD, USERNAME, DATABASE, JSON_NAME
 from variables import names, ages, cities, tables
@@ -25,7 +27,7 @@ def create_connection(server, username, password):
 
 
 
-# Create the and select the Database.
+# Create and select the Database.
 def create_database(DATABASE):
     try:
         cursor.execute(f"CREATE DATABASE {DATABASE}")
@@ -64,7 +66,7 @@ def populate_tables(names, ages, cities):
     finally: 
         print("Tables have been populated")
 
-#Export the table.
+#Export the first table.
 def export_table():
     cursor.execute(f"""SELECT name AS 'name', age AS 'age', city AS 'city' 
                    FROM {tables[0]} FOR JSON PATH;""")
@@ -79,7 +81,7 @@ def close_connection():
     connection.close()
 
 
-#Function Calls 
+#Call the functions. 
 try:
     create_connection(SERVER, USERNAME, PASSWORD)
     create_database(DATABASE)
