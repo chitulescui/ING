@@ -17,7 +17,6 @@ resources:
     ref: developer   
 
 stages:
-
 - stage: Build_And_Run_Docker_Image
   jobs:
   - job: Docker_Build
