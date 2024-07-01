@@ -34,7 +34,6 @@ def create_database(database=DATABASE):
         cursor.execute(f"""
                         BEGIN CREATE DATABASE {database}
                         END""")
-        connection.commit()
         print("Database created.")
         cursor.execute(f"USE {database}")
         print(f"Using the {database} database.")
