@@ -1,7 +1,7 @@
 import pyodbc, json
 import json
 import os
-from credentials import SERVER, PASSWORD, USERNAME, DATABASE, TABLE, JSON_NAME
+from credentials import SERVER, PASSWORD, USERNAME, DATABASE, JSON_NAME
 
 # DATABASE="test23"
 # TABLE="Person1"
@@ -61,18 +61,19 @@ def create_table(tables):
 
 
 def populate_table(names, ages, cities):
-    # Ensure the lists have the same length
-    if not (len(names) == len(ages) == len(cities)):
-        raise ValueError("All input lists must have the same length")
-    for name, age, city in zip(names, ages, cities):
-        cursor.execute(f"""INSERT INTO {TABLE} (name, age, city) 
-                       VALUES (?, ?, ?)""", (name, age, city))
-    print("Table populated successfully!")
+    for table in tables:
+        # Ensure the lists have the same length
+        if not (len(names) == len(ages) == len(cities)):
+            raise ValueError("All input lists must have the same length")
+        for name, age, city in zip(names, ages, cities):
+            cursor.execute(f"""INSERT INTO {TABLE} (name, age, city) 
+                           VALUES (?, ?, ?)""", (name, age, city))
+        print("Table populated successfully!")
 
 
 def export_table():
     cursor.execute(f"""SELECT name AS 'name', age AS 'age', city AS 'city' 
-                   FROM {TABLE} FOR JSON PATH;""")
+                   FROM {tables[0]} FOR JSON PATH;""")
     json_result = cursor.fetchone()[0]
     with open(f'{JSON_NAME}.json', 'w') as f:
         json.dump(json.loads(json_result), f, indent=4)
