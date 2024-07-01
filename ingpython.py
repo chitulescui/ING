@@ -67,7 +67,7 @@ def populate_tables(names, ages, cities):
             if not (len(names) == len(ages) == len(cities)):
                 raise ValueError("All input lists must have the same length")
             for name, age, city in zip(names, ages, cities):
-                cursor.execute(f"""INSERT INTO {TABLE} (name, age, city) 
+                cursor.execute(f"""INSERT INTO {table} (name, age, city) 
                                VALUES (?, ?, ?)""", (name, age, city))
             print("Table populated successfully!")
     finally: 
