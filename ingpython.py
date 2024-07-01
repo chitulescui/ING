@@ -28,18 +28,18 @@ def create_connection(server, username, password):
 
 # Create and select the Database.
 
-def create_database(DATABASE):                       
+def create_database(database=DATABASE):                     
     try:                                              #Creating the database and checks if the database already exists or not. 
         cursor.execute(f"""
-                        BEGIN CREATE DATABASE {DATABASE}
+                        BEGIN CREATE DATABASE {database}
                         END""")
         connection.commit()
         print("Database created.")
-        cursor.execute(f"USE {DATABASE}")
-        print(f"Using the {DATABASE} database.")
+        cursor.execute(f"USE {database}")
+        print(f"Using the {database} database.")
     except pyodbc.Error as e:
         if "42000" in str(e):
-            print(f"Error '42000': Database '{DATABASE}' already exists")
+            print(f"Error '42000': Database '{database}' already exists")
             return None
 
 #Create the tables.
