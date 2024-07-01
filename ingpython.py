@@ -46,13 +46,14 @@ def create_database(DATABASE):
         print("Database cannot be created:", e)
         return None
     
-def create_table(TABLE):
-    try: 
-        cursor.execute(f"""CREATE TABLE {TABLE} 
-                       (name VARCHAR(50), 
-                       age smallint, 
-                       city VARCHAR(50))""")
-        print(f"Table {TABLE} created ")
+def create_table(tables):
+    try:
+        for table in tables:
+             cursor.execute(f"""CREATE TABLE {table} 
+                            (name VARCHAR(50), 
+                            age smallint, 
+                            city VARCHAR(50))""")
+             print(f"Table {table} created ")
     except pyodbc.Error as e:
         print("Table cannot be created:", e)
         return None
