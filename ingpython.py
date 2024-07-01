@@ -3,11 +3,11 @@ import json
 import os
 from credentials import SERVER, PASSWORD, USERNAME, DATABASE, JSON_NAME
 
-# DATABASE="test23"
-# TABLE="Person1"
-# SERVER=".,1433"
-# PASSWORD="Cirica01@@"
-# USERNAME="sa"
+DATABASE="test23"
+
+SERVER=".,1433"
+PASSWORD="Cirica01@@"
+USERNAME="sa"
 names = ['Alice', 'Bob', 'Charlie']
 ages = [30, 25, 22]
 cities = ['New York', 'Los Angeles', 'Chicago']
