@@ -38,7 +38,7 @@ stages:
   - job: Python
     steps:
     - powershell: |
-        Write-Host "##vso[task.setvariable variable=passwordd;]'$(MSSQL_ROOT_PASSWORD)'"
+        Write-Host "##vso[task.setvariable variable=passwordd;issecret=true]MSSQL_ROOT_PASSWORD"
     - task: PythonScript@0
       inputs:
         scriptSource: 'filePath'
