@@ -1,18 +1,8 @@
-import pyodbc, json
-import json
-import os
+import pyodbc, json, os
 from credentials import SERVER, PASSWORD, USERNAME, DATABASE, JSON_NAME
+from variables import names, ages, cities, tables
 
-DATABASE="test23"
-
-SERVER=".,1433"
-PASSWORD="Cirica01@@"
-USERNAME="sa"
-names = ['Alice', 'Bob', 'Charlie']
-ages = [30, 25, 22]
-cities = ['New York', 'Los Angeles', 'Chicago']
-tables = ['First','Second','Third']
-
+#Create the connection to SQL Server
 def create_connection(server, username, password):
     global connection, cursor
     connection_str = (
@@ -35,7 +25,7 @@ def create_connection(server, username, password):
 
 
 
-# Create the database
+# Create the and select the Database.
 def create_database(DATABASE):
     try:
         cursor.execute(f"CREATE DATABASE {DATABASE}")
@@ -45,7 +35,8 @@ def create_database(DATABASE):
     except pyodbc.Error as e:
         print("Database cannot be created:", e)
         return None
-    
+
+#Create the tables.
 def create_table(tables):
     try:
         for table in tables:
@@ -59,7 +50,7 @@ def create_table(tables):
         return None
 
 
-
+#Populate the tables.
 def populate_tables(names, ages, cities):
     try:
         for table in tables:
@@ -73,7 +64,7 @@ def populate_tables(names, ages, cities):
     finally: 
         print("Tables have been populated")
 
-
+#Export the table.
 def export_table():
     cursor.execute(f"""SELECT name AS 'name', age AS 'age', city AS 'city' 
                    FROM {tables[0]} FOR JSON PATH;""")
@@ -82,6 +73,7 @@ def export_table():
         json.dump(json.loads(json_result), f, indent=4)
         print(f"{JSON_NAME} file created successfully!")
 
+#Close the connection with the Database.
 def close_connection():
     cursor.close()
     connection.close()
@@ -98,7 +90,7 @@ except pyodbc.Error as e:
     print("You have an error:", e)
 finally: 
     close_connection()
-    print("Connection finally closed")
+    print("Connection closed")
 
 
 
