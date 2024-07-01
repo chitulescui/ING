@@ -7,8 +7,8 @@ pool:
 variables:
 - group: pythonVariables
 - group: sqlVariables
-- name: MSSQL_ROOT_PASSWORD
-  value: $(MSSQL_ROOT_PASSWORD)
+- name: password
+  value: '$(MSSQL_ROOT_PASSWORD)'
 
 resources:
   repositories:
@@ -29,7 +29,7 @@ stages:
   - job: Run_Docker_Container
     steps:
       - checkout: ING
-      - powershell: docker run --name some-mysql -p $(PORT):$(PORT) -e $(ACCEPT_EULA) -e "MSSQL_SA_PASSWORD=$(MSSQL_ROOT_PASSWORD)" -d chitulescui/sqlserver
+      - powershell: docker run --name some-mysql -p $(PORT):$(PORT) -e $(ACCEPT_EULA) -e "MSSQL_SA_PASSWORD='$(password)'" -d chitulescui/sqlserver
     displayName: Docker_Run
     dependsOn: Docker_Build
 
