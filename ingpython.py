@@ -1,5 +1,4 @@
 #Import Libraries 
-
 import pyodbc, json, os
 from credentials import SERVER, PASSWORD, USERNAME, DATABASE, JSON_NAME
 from variables import names, ages, cities, tables

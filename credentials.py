@@ -7,7 +7,7 @@ USERNAME=os.environ.get("USER")
 DATABASE=os.environ.get('DATABASE')
 JSON_NAME=os.environ.get('JSON_NAME')
 
-#Global Variables
+
 
 
 
