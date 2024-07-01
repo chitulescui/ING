@@ -4,6 +4,7 @@ from os.path import exists
 from credentials import SERVER, PASSWORD, USERNAME, DATABASE, JSON_NAME
 from variables import names, ages, cities, tables
 
+
 #Create the connection to SQL Server
 
 def create_connection(server, username, password):
