@@ -38,8 +38,9 @@ stages:
   - job: PShell
     steps:
     - powershell: |
-      Write-Host "##vso[task.setvariable variable=passwordd]$(MSSQL_ROOT_PASSWORD)"
-    displayName: 'Set runtime variable'
+        Write-Host "##vso[task.setvariable variable=passwordd;]$(MSSQL_ROOT_PASSWORD)"
+
+
   - job: Python
     steps:
     - task: PythonScript@0
