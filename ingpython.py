@@ -60,15 +60,18 @@ def create_table(tables):
 
 
 
-def populate_table(names, ages, cities):
-    for table in tables:
-        # Ensure the lists have the same length
-        if not (len(names) == len(ages) == len(cities)):
-            raise ValueError("All input lists must have the same length")
-        for name, age, city in zip(names, ages, cities):
-            cursor.execute(f"""INSERT INTO {TABLE} (name, age, city) 
-                           VALUES (?, ?, ?)""", (name, age, city))
-        print("Table populated successfully!")
+def populate_tables(names, ages, cities):
+    try:
+        for table in tables:
+            # Ensure the lists have the same length
+            if not (len(names) == len(ages) == len(cities)):
+                raise ValueError("All input lists must have the same length")
+            for name, age, city in zip(names, ages, cities):
+                cursor.execute(f"""INSERT INTO {TABLE} (name, age, city) 
+                               VALUES (?, ?, ?)""", (name, age, city))
+            print("Table populated successfully!")
+    finally: 
+        print("Tables have been populated")
 
 
 def export_table():
@@ -88,8 +91,8 @@ def close_connection():
 try:
     create_connection(SERVER, USERNAME, PASSWORD)
     create_database(DATABASE)
-    create_table(TABLE)
-    populate_table(names,ages,cities)
+    create_table(tables)
+    populate_tables(names,ages,cities)
     export_table()
 except pyodbc.Error as e:
     print("You have an error:", e)
