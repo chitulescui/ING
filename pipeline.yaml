@@ -7,7 +7,7 @@ pool:
 variables:
 - group: pythonVariables
 - group: sqlVariables
-- name: password
+- name: passwordd
   value: '$(MSSQL_ROOT_PASSWORD)'
 
 resources:

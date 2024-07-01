@@ -2,7 +2,7 @@ import os
 
 
 SERVER=os.environ.get('HOST')
-PASSWORD=os.getenv('password')
+PASSWORD=os.getenv('passwordd')
 USERNAME=os.environ.get("USER")
 DATABASE=os.environ.get('DATABASE')
 TABLE=os.environ.get('TABLE')
