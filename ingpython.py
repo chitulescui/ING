@@ -121,10 +121,10 @@ def export_table():
 
 #Create new login
 def create_login():
-    cursor.execute(f"CREATE LOGIN {NEW_USERNAME} WITH PASSWORD = '{NEW_PASSWORD}';");
-    cursor.execute(f"CREATE USER {NEW_USER} FOR LOGIN {NEW_USERNAME}")
-    cursor.execute(f"EXEC sp_addsrvrolemember {NEW_USERNAME}, 'sysadmin';")
-    cursor.execute(f"USE {DATABASE}")
+    cursor.execute(f"CREATE LOGIN '{NEW_USERNAME}' WITH PASSWORD = '{NEW_PASSWORD}';");
+    cursor.execute(f"CREATE USER '{NEW_USER}' FOR LOGIN '{NEW_USERNAME}'")
+    cursor.execute(f"EXEC sp_addsrvrolemember '{NEW_USERNAME}', 'sysadmin';")
+    cursor.execute(f"USE '{DATABASE}'")
     print("I`m using the new login")
 
 
