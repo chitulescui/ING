@@ -48,6 +48,6 @@ stages:
       condition: succeededOrFailed()
       displayName: Upload_JSON_File
       inputs:
-       targetPath: "$(System.DefaultWorkingDirectory)/ingdatabasee.json"
+       targetPath: "$(System.DefaultWorkingDirectory)/ingdatabase.json"
        artifact: 'ingdatabasee.json'
        publishlocation: 'pipeline'
