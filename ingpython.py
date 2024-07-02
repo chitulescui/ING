@@ -10,12 +10,12 @@ from variables import dict_tables
 # USERNAME="sa"
 # DATABASE="trydatabasebun"
 # JSON_NAME="jsontryfilebun.json"
-#
+# #
 #
 # SERVER=".,1433"
 # NEW_PASSWORD='logincoco123@@'
-# NEW_USERNAME='login1'
-# NEW_USER='userlogin1'
+# NEW_USERNAME='login3'
+# NEW_USER='userlogin2'
 # # DATABASE="login"
 # JSON_NAME="jsontryfilebun.json"
 
@@ -122,9 +122,9 @@ def export_table():
 #Create new login
 def create_login():
     cursor.execute(f"CREATE LOGIN {NEW_USERNAME} WITH PASSWORD = '{NEW_PASSWORD}';");
-    cursor.execute(f"CREATE USER '{NEW_USER}' FOR LOGIN '{NEW_USERNAME}'")
+    cursor.execute(f"CREATE USER {NEW_USER} FOR LOGIN {NEW_USERNAME}")
     cursor.execute(f"EXEC sp_addsrvrolemember '{NEW_USERNAME}', 'sysadmin';")
-    cursor.execute(f"USE '{DATABASE}'")
+    cursor.execute(f"USE {DATABASE}")
     print("I`m using the new login")
 
 
