@@ -1,2 +1,2 @@
 #Additional varibles
-dict_tables = {'first':['Alice',30,'New York'],'second':['Bob', 25,'Los Angeles'], 'third':['Charlie',22,'Chicago']}
+dict_tables = {'First':['Alice',30,'New York'],'Second':['Bob', 25,'Los Angeles'], 'Third':['Charlie',22,'Chicago']}
