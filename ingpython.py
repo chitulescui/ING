@@ -1,15 +1,15 @@
 #Import Libraries 
 import pyodbc, json, os, random
 from os.path import exists
-# from credentials import SERVER, PASSWORD, USERNAME, DATABASE, JSON_NAME
+from credentials import SERVER, PASSWORD, USERNAME, DATABASE, JSON_NAME
 from variables import dict_tables
-dict_tables = {'first':['Alice',30,'New York'],'second':['Bob', 25,'Los Angeles'], 'third':['Charlie',22,'Chicago']}
-
-SERVER=".,1433"
-PASSWORD="Cirica01@@"
-USERNAME="sa"
-DATABASE="trydatabasebun"
-JSON_NAME="jsontryfilebun.json"
+# dict_tables = {'first':['Alice',30,'New York'],'second':['Bob', 25,'Los Angeles'], 'third':['Charlie',22,'Chicago']}
+#
+# SERVER=".,1433"
+# PASSWORD="Cirica01@@"
+# USERNAME="sa"
+# DATABASE="trydatabasebun"
+# JSON_NAME="jsontryfilebun.json"
 #Create the connection to SQL Server
 
 def create_connection(server, username, password):
@@ -49,7 +49,7 @@ def create_database(database=DATABASE):
 
 #Create the tables.
 
-def create_table(tables):                              
+def create_table():
     try:                                               #Creating the table and checks if the table already exists or not in the database.
         for table in dict_tables.keys():
              cursor.execute(f"""CREATE TABLE {table} 
@@ -118,7 +118,7 @@ def close_connection():
 try:
     create_connection(SERVER, USERNAME, PASSWORD)       #Establish Connection
     create_database(DATABASE)                           #Create Database
-    create_table(tables)                                #Create Tables
+    create_table()                                #Create Tables
     populate_tables()                  #Populate Tables
     export_table()                                      #Export one of the Tables
 except pyodbc.OperationalError as e:
