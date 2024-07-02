@@ -1,5 +1,2 @@
 #Additional varibles
-names = ['Alice', 'Bob', 'Charlie']
-ages = [30, 25, 22]
-cities = ['New York', 'Los Angeles', 'Chicago']
-tables = ['First','Second','Third']
+dict_tables = {'first':['Alice',30,'New York'],'second':['Bob', 25,'Los Angeles'], 'third':['Charlie',22,'Chicago']}
