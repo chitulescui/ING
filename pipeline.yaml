@@ -16,7 +16,7 @@ resources:
     endpoint: chitulescui
     ref: developer   
 
-# stages:
+stages:
 # - stage: Build_And_Run_Docker_Image
   # jobs:
   # - job: Docker_Build
