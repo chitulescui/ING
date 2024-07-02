@@ -3,17 +3,17 @@ import pyodbc, json, os, random
 from os.path import exists
 from credentials import SERVER, PASSWORD, USERNAME, DATABASE, JSON_NAME
 from variables import dict_tables
-# dict_tables = {'first':['Alice',30,'New York'],'second':['Bob', 25,'Los Angeles'], 'third':['Charlie',22,'Chicago']}
-#
-# SERVER=".,1433"
-# PASSWORD="Cirica01@@"
-# USERNAME="sa"
-# DATABASE="trydatabasebun"
-# JSON_NAME="jsontryfilebun.json"
+dict_tables = {'first':['Alice',30,'New York'],'second':['Bob', 25,'Los Angeles'], 'third':['Charlie',22,'Chicago']}
+
+SERVER=".,1433"
+PASSWORD="Cirica01@@"
+USERNAME="sa"
+DATABASE="trydatabasebun"
+JSON_NAME="jsontryfilebun.json"
 #Create the connection to SQL Server
 
 def create_connection(server, username, password):
-    global connection, cursor                       #Globally declared variables in order to use them in the next functions.
+                                              #Globally declared variables in order to use them in the next functions.
     connection_str = (
         f'DRIVER={{ODBC Driver 18 for SQL Server}};'
         f'SERVER={server};'
@@ -22,6 +22,7 @@ def create_connection(server, username, password):
         f'TrustServerCertificate=yes;'
     )
     try:
+        global connection, cursor
         connection = pyodbc.connect(connection_str)  #Establish the connection with the Database.
         print("Connection successful!")
         connection.autocommit = True
