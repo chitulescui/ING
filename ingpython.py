@@ -106,7 +106,7 @@ def export_table():
             lista_tabele = []
             lista_noua=[]
             for table in dict_tables.keys():
-              # Create a random number within the range of the tables list.
+             #Create the output of all databases in a list and export it in a JSON format
                 cursor.execute(f"SELECT name AS 'name', age AS 'age', city AS 'city' FROM {table} FOR JSON PATH;")
                 json_result=cursor.fetchone()[0]
                 lista_tabele.append(json_result)
