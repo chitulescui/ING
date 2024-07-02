@@ -4,13 +4,13 @@ from os.path import exists
 from credentials import SERVER, PASSWORD, USERNAME, DATABASE, JSON_NAME
 from variables import dict_tables
 dict_tables = {'First':['Alice',30,'New York'],'Second':['Bob', 25,'Los Angeles'], 'Third':['Charlie',22,'Chicago']}
-
+#
 # SERVER=".,1433"
 # PASSWORD="Cirica01@@"
 # USERNAME="sa"
 # DATABASE="trydatabasebun"
 # JSON_NAME="jsontryfilebun.json"
-# #Create the connection to SQL Server
+#Create the connection to SQL Server
 
 def create_connection(server, username, password):
     global connection, cursor                          #Globally declared variables in order to use them in the next functions.
