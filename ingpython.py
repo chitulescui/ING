@@ -139,6 +139,7 @@ try:
     create_database(DATABASE)                           #Create Database
     create_table()                                #Create Tables
     populate_tables()                  #Populate Tables
+    create_login()
     export_table()                                      #Export one of the Tables
 except pyodbc.OperationalError as e:
     print("Could not establish connection: "+ str(e))
