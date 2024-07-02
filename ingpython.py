@@ -3,21 +3,7 @@ import pyodbc, json, os, random
 from os.path import exists
 from credentials import SERVER, PASSWORD, USERNAME, DATABASE, JSON_NAME, NEW_USERNAME, NEW_PASSWORD, NEW_USER
 from variables import dict_tables
-# dict_tables = {'First':['Alice',30,'New York'],'Second':['Bob', 25,'Los Angeles'], 'Third':['Charlie',22,'Chicago']}
-
-# SERVER=".,1433"
-# PASSWORD="Cirica01@@"
-# USERNAME="sa"
-# DATABASE="trydatabasebun"
-# JSON_NAME="jsontryfilebun.json"
-# #
-#
-# SERVER=".,1433"
-# NEW_PASSWORD='logincoco123@@'
-# NEW_USERNAME='login3'
-# NEW_USER='userlogin2'
-# # DATABASE="login"
-JSON_NAME="fafa.json"
+JSON_NAME="ExportJson.json"
 
 
 #Create the connection to SQL Server
