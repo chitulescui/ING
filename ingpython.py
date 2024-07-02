@@ -107,8 +107,8 @@ def export_table():
         else:
             lista_tabele = []
             lista_noua=[]
-            for table in dict_tables.keys():
-                cursor.execute(f"SELECT name AS 'name', age AS 'age', city AS 'city' FROM {table} FOR JSON PATH;")
+            for table_key in dict_tables.keys():
+                cursor.execute(f"SELECT name AS 'name', age AS 'age', city AS 'city' FROM {table_key} FOR JSON PATH;")
                 json_result=cursor.fetchone()[0]
                 lista_tabele.append(json_result)
             for i in range(len(lista_tabele)):
