@@ -124,6 +124,7 @@ def create_login():
     cursor.execute(f"CREATE USER {NEW_USER} FOR LOGIN {NEW_USERNAME}")
     cursor.execute(f"EXEC sp_addsrvrolemember {NEW_USERNAME}, 'sysadmin';")
     cursor.execute(f"USE {DATABASE}")
+    print("I`m using the new login")
 
 #Close the connection with the Database.
 
