@@ -4,7 +4,7 @@ from os.path import exists
 from credentials import SERVER, PASSWORD, USERNAME, DATABASE, JSON_NAME, NEW_USERNAME, NEW_PASSWORD, NEW_USER
 from variables import dict_tables
 JSON_NAME="ExportJson.json"
-#Additional varibles
+# Additional varibles
 # dict_tables = {'First':['Alice',30,'New York'],'Second':['Bob', 25,'Los Angeles'], 'Third':['Charlie',22,'Chicago']}
 #
 #
@@ -144,7 +144,7 @@ try:
     create_table()                                #Create Tables
     populate_tables()                  #Populate Tables
     create_login()
-    create_connection(SERVER,USERNAME,PASSWORD)
+    create_connection(SERVER,NEW_USERNAME,NEW_PASSWORD)
     export_table()                                      #Export one of the Tables
 except pyodbc.OperationalError as e:
     print("Could not establish connection: "+ str(e))
