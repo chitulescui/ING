@@ -3,7 +3,7 @@ import pyodbc, json, os, random
 from os.path import exists
 from credentials import SERVER, PASSWORD, USERNAME, DATABASE, JSON_NAME
 from variables import dict_tables
-dict_tables = {'first':['Alice',30,'New York'],'second':['Bob', 25,'Los Angeles'], 'third':['Charlie',22,'Chicago']}
+dict_tables = {'First':['Alice',30,'New York'],'Second':['Bob', 25,'Los Angeles'], 'Third':['Charlie',22,'Chicago']}
 
 SERVER=".,1433"
 PASSWORD="Cirica01@@"
@@ -73,7 +73,7 @@ def populate_tables():
             cursor.execute(f"""                                
                                INSERT INTO {table} (name, age, city) 
                                VALUES (?, ?, ?)
-                               """, (dict[table][0], dict[table][1], dict[table][2]))
+                               """, (dict_tables[table][0], dict_tables[table][1], dict_tables[table][2]))
         print("Table populated successfully!")
     except pyodbc.Error as e:
             print("Error '42S01':Invalid object name",str(e))
