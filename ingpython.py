@@ -13,7 +13,7 @@ dict_tables = {'First':['Alice',30,'New York'],'Second':['Bob', 25,'Los Angeles'
 # #Create the connection to SQL Server
 
 def create_connection(server, username, password):
-                                              #Globally declared variables in order to use them in the next functions.
+    global connection, cursor                          #Globally declared variables in order to use them in the next functions.
     connection_str = (
         f'DRIVER={{ODBC Driver 18 for SQL Server}};'
         f'SERVER={server};'
@@ -22,7 +22,6 @@ def create_connection(server, username, password):
         f'TrustServerCertificate=yes;'
     )
     try:
-        global connection, cursor
         connection = pyodbc.connect(connection_str)  #Establish the connection with the Database.
         print("Connection successful!")
         connection.autocommit = True
