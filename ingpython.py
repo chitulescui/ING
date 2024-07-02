@@ -1,17 +1,25 @@
 #Import Libraries 
 import pyodbc, json, os, random
 from os.path import exists
-from credentials import SERVER, PASSWORD, USERNAME, DATABASE, JSON_NAME
+from credentials import SERVER, PASSWORD, USERNAME, DATABASE, JSON_NAME, NEW_USERNAME, NEW_PASSWORD, NEW_USER
 from variables import dict_tables
 dict_tables = {'First':['Alice',30,'New York'],'Second':['Bob', 25,'Los Angeles'], 'Third':['Charlie',22,'Chicago']}
-#
+
 # SERVER=".,1433"
 # PASSWORD="Cirica01@@"
 # USERNAME="sa"
 # DATABASE="trydatabasebun"
 # JSON_NAME="jsontryfilebun.json"
-#Create the connection to SQL Server
+#
+#
+# SERVER=".,1433"
+# PASSWORD="login1@@"
+# USERNAME="login1"
+# # DATABASE="login"
+# JSON_NAME="jsontryfilebun.json"
 
+
+#Create the connection to SQL Server
 def create_connection(server, username, password):
     global connection, cursor                          #Globally declared variables in order to use them in the next functions.
     connection_str = (
@@ -19,6 +27,7 @@ def create_connection(server, username, password):
         f'SERVER={server};'
         f'UID={username};'
         f'PWD={password};'
+        # f'DATABASE={DATABASE};'
         f'TrustServerCertificate=yes;'
     )
     try:
@@ -34,6 +43,10 @@ def create_connection(server, username, password):
 
 # Create and select the Database.
 
+
+
+
+# create_login()
 def create_database(database=DATABASE):                     
     try:                                              #Creating the database and checks if the database already exists or not. 
         cursor.execute(f"""
@@ -105,6 +118,12 @@ def export_table():
         print(str(e))
         return None
 
+#Create new login
+def create_login():
+    cursor.execute(f"CREATE LOGIN {NEW_USERNAME} WITH PASSWORD = {NEW_PASSWORD};")
+    cursor.execute(f"CREATE USER {NEW_USER} FOR LOGIN {NEW_USERNAME}")
+    cursor.execute(f"EXEC sp_addsrvrolemember {NEW_USERNAME}, 'sysadmin';")
+    cursor.execute(f"USE {DATABASE}")
 
 #Close the connection with the Database.
 
