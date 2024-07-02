@@ -69,7 +69,7 @@ def create_table():
 def populate_tables():
     try:                                               #Populate the table with values from 3 lists(names, ages, cities).
         # Ensure the lists have the same length
-        for table in dict.keys():
+        for table in dict_tables.keys():
             cursor.execute(f"""                                
                                INSERT INTO {table} (name, age, city) 
                                VALUES (?, ?, ?)
