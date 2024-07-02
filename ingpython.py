@@ -6,7 +6,7 @@ from variables import dict_tables
 JSON_NAME="ExportJson.json"
 #Additional varibles
 # dict_tables = {'First':['Alice',30,'New York'],'Second':['Bob', 25,'Los Angeles'], 'Third':['Charlie',22,'Chicago']}
-
+#
 #
 # SERVER=".,1433"
 # PASSWORD="Cirica01@@"
@@ -19,7 +19,7 @@ JSON_NAME="ExportJson.json"
 # NEW_PASSWORD='logincoco1234@@'
 # NEW_USERNAME='login4'
 # NEW_USER='userlogin4'
-# # DATABASE="login"
+# # # DATABASE="login"
 
 
 #Create the connection to SQL Server
@@ -84,11 +84,11 @@ def create_table():
 def populate_tables():
     try:                                               #Populate the table with values from 3 lists(names, ages, cities).
         # Ensure the lists have the same length
-        for table in dict_tables.keys():
+        for key in dict_tables.keys():
             cursor.execute(f"""                                
-                               INSERT INTO {table} (name, age, city) 
+                               INSERT INTO {key} (name, age, city) 
                                VALUES (?, ?, ?)
-                               """, (dict_tables[table][0], dict_tables[table][1], dict_tables[table][2]))
+                               """, (dict_tables[key][0], dict_tables[key][1], dict_tables[key][2]))
         print("Table populated successfully!")
     except pyodbc.Error as e:
             print("Error '42S01':Invalid object name",str(e))
@@ -108,7 +108,6 @@ def export_table():
             lista_tabele = []
             lista_noua=[]
             for table in dict_tables.keys():
-
                 cursor.execute(f"SELECT name AS 'name', age AS 'age', city AS 'city' FROM {table} FOR JSON PATH;")
                 json_result=cursor.fetchone()[0]
                 lista_tabele.append(json_result)
