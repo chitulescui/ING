@@ -17,7 +17,7 @@ from variables import dict_tables
 # NEW_USERNAME='login3'
 # NEW_USER='userlogin2'
 # # DATABASE="login"
-# JSON_NAME="jsontryfilebun.json"
+JSON_NAME="fafa.json"
 
 
 #Create the connection to SQL Server
