@@ -17,8 +17,8 @@ JSON_NAME="jdsdsantryfilebun.json"
 
 SERVER=".,1433"
 NEW_PASSWORD='logincoco1234@@'
-NEW_USERNAME='login44'
-NEW_USER='userlogin44'
+NEW_USERNAME='login47'
+NEW_USER='userlogin47'
 # # DATABASE="login"
 
 
