@@ -1,19 +1,21 @@
-#Import Libraries 
+#Import Libraries
 import pyodbc, json, os, random
 from os.path import exists
-from credentials import SERVER, PASSWORD, USERNAME, DATABASE, JSON_NAME
-from variables import names, ages, cities, tables
+from credentials import SERVER, PASSWORD, USERNAME, DATABASE, JSON_NAME, NEW_USERNAME, NEW_PASSWORD, NEW_USER
+from variables import dict_tables
+
+
 
 
 #Create the connection to SQL Server
-
 def create_connection(server, username, password):
-    global connection, cursor                       #Globally declared variables in order to use them in the next functions.
+    global connection, cursor                          #Globally declared variables in order to use them in the next functions.
     connection_str = (
         f'DRIVER={{ODBC Driver 18 for SQL Server}};'
         f'SERVER={server};'
         f'UID={username};'
         f'PWD={password};'
+        # f'DATABASE={DATABASE};'
         f'TrustServerCertificate=yes;'
     )
     try:
@@ -29,6 +31,9 @@ def create_connection(server, username, password):
 
 # Create and select the Database.
 
+
+
+# create_login()
 def create_database(database=DATABASE):                     
     try:                                              #Creating the database and checks if the database already exists or not. 
         cursor.execute(f"""
@@ -44,9 +49,9 @@ def create_database(database=DATABASE):
 
 #Create the tables.
 
-def create_table(tables):                              
+def create_table():
     try:                                               #Creating the table and checks if the table already exists or not in the database.
-        for table in tables:
+        for table in dict_tables.keys():
              cursor.execute(f"""CREATE TABLE {table} 
                             (name VARCHAR(50), 
                             age smallint, 
@@ -60,17 +65,14 @@ def create_table(tables):
 
 #Populate the tables.
 
-def populate_tables(names, ages, cities):               
+def populate_tables():
     try:                                               #Populate the table with values from 3 lists(names, ages, cities).
-        for table in tables:
-            # Ensure the lists have the same length
-            if not (len(names) == len(ages) == len(cities)):
-                raise ValueError("All input lists must have the same length")
-            for name, age, city in zip(names, ages, cities):
-                cursor.execute(f"""                                
-                                   INSERT INTO {table} (name, age, city) 
-                                   VALUES (?, ?, ?)
-                                   """, (name, age, city))
+        # Ensure the lists have the same length
+        for key in dict_tables.keys():
+            cursor.execute(f"""                                
+                               INSERT INTO {key} (name, age, city) 
+                               VALUES (?, ?, ?)
+                               """, (dict_tables[key][0], dict_tables[key][1], dict_tables[key][2]))
         print("Table populated successfully!")
     except pyodbc.Error as e:
             print("Error '42S01':Invalid object name",str(e))
@@ -87,16 +89,28 @@ def export_table():
         if file_exists == True:
             print(f"{JSON_NAME} already exists!")
         else:
-            table_number = random.choice(range(len(tables)))  # Create a random number within the range of the tables list.
-            cursor.execute(f"""SELECT name AS 'name', age AS 'age', city AS 'city' 
-                       FROM {tables[table_number]} FOR JSON PATH;""")
-            json_result = cursor.fetchone()[0]
+            table_list = []
+            export_list= []
+            for table_key in dict_tables.keys():
+                cursor.execute(f"SELECT name AS 'name', age AS 'age', city AS 'city' FROM {table_key} FOR JSON PATH;")
+                json_result=cursor.fetchone()[0]
+                table_list.append(json_result)
+            for i in range(len(table_list)):
+                export_list.append(json.loads(table_list[i])[0])
             with open(f'{JSON_NAME}', 'w') as f:     #Create JSON file.
-                json.dump(json.loads(json_result), f, indent=4)
+                json.dump(export_list, f, indent=4)
                 print(f"{JSON_NAME} file created successfully!")
     except pyodbc.Error as e:
         print(str(e))
         return None
+
+#Create new login for Microsoft SQL server
+def create_login():
+    cursor.execute(f"CREATE LOGIN {NEW_USERNAME} WITH PASSWORD = '{NEW_PASSWORD}';")
+    cursor.execute(f"CREATE USER {NEW_USER} FOR LOGIN {NEW_USERNAME};")
+    cursor.execute(f"EXEC sp_addsrvrolemember {NEW_USERNAME}, 'sysadmin';")
+    cursor.execute(f"USE {DATABASE};")
+    print("I`m using the new login")
 
 
 #Close the connection with the Database.
@@ -111,8 +125,11 @@ def close_connection():
 try:
     create_connection(SERVER, USERNAME, PASSWORD)       #Establish Connection
     create_database(DATABASE)                           #Create Database
-    create_table(tables)                                #Create Tables
-    populate_tables(names,ages,cities)                  #Populate Tables
+    create_table()                                #Create Tables
+    populate_tables()                  #Populate Tables
+    create_login()
+    create_connection(SERVER,NEW_USERNAME,NEW_PASSWORD)
+    cursor.execute(f"USE {DATABASE}")
     export_table()                                      #Export one of the Tables
 except pyodbc.OperationalError as e:
     print("Could not establish connection: "+ str(e))

@@ -29,7 +29,7 @@ stages:
       - powershell: docker run --name some-mysql -p $(PORT):$(PORT) -e $(ACCEPT_EULA) -e "MSSQL_SA_PASSWORD=$(MSSQL_ROOT_PASSWORD)" -d chitulescui/sqlserver
     displayName: Docker_Run
     dependsOn: Docker_Build
-# 
+
 - stage: Run_Python_Script
   jobs:
   - job: Python
@@ -48,5 +48,6 @@ stages:
       condition: succeededOrFailed()
       displayName: Upload_JSON_File
       inputs:
-       targetPath: "$(System.DefaultWorkingDirectory)/ingdatabase.json"
-       artifactName: ingdatabase
+       targetPath: "$(System.DefaultWorkingDirectory)/jsonfile.json"
+       artifact: jsonfile.json
+       publishlocation: 'pipeline'
