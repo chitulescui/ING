@@ -47,6 +47,6 @@ stages:
     - task: PublishPipelineArtifact@1
       displayName: Upload_JSON_File
       inputs:
-          targetPath: '$(System.DefaultWorkingDirectory)/jsontryfilebun.json'
-          artifact: 'jsontryfilebun.json'
+          targetPath: '$(System.DefaultWorkingDirectory)/jsontryfilebun'
+          artifact: jsontryfilebun
           publishLocation: 'pipeline'
