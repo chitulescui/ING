@@ -126,6 +126,7 @@ try:
     populate_tables()                                   #Populate Tables
     create_login()                                      #Create New Login
     create_connection(SERVER,NEW_USERNAME,NEW_PASSWORD) #Establish the connection to SQL Database with the new Login                
+    cursor.execute(f"USE {DATABASE};")
     export_table()                                      #Export one of the Tables
 except pyodbc.OperationalError as e:
     print("Could not establish connection: "+ str(e))
