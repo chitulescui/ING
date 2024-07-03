@@ -34,6 +34,7 @@ stages:
   jobs:
   - job: Python
     steps:
+    - checkout: ING
     - task: PythonScript@0
       inputs:
         scriptSource: 'filePath'
@@ -41,6 +42,7 @@ stages:
         pythonInterpreter: '$(pythonInterpreter)'
   - job: Publish_Python_Artifact
     steps:
+    - checkout: ING
     - task: PublishPipelineArtifact@1
       displayName: Upload_JSON_File
       inputs:
