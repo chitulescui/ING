@@ -99,11 +99,15 @@ def export_table():
 
 #Create new login for Microsoft SQL server
 def create_login():
-    cursor.execute(f"CREATE LOGIN {NEW_USERNAME} WITH PASSWORD = '{NEW_PASSWORD}';")
-    cursor.execute(f"CREATE USER {NEW_USER} FOR LOGIN {NEW_USERNAME};")
-    cursor.execute(f"EXEC sp_addsrvrolemember {NEW_USERNAME}, 'sysadmin';")
-    cursor.execute(f"USE {DATABASE};")
-    print("I`m using the new login")
+    try:
+        cursor.execute(f"CREATE LOGIN {NEW_USERNAME} WITH PASSWORD = '{NEW_PASSWORD}';")
+        cursor.execute(f"CREATE USER {NEW_USER} FOR LOGIN {NEW_USERNAME};")
+        cursor.execute(f"EXEC sp_addsrvrolemember {NEW_USERNAME}, 'sysadmin';")
+        cursor.execute(f"USE {DATABASE};")
+        print("I`m using the new login")
+    except pyodbc.Error as e:
+        print(str(e))
+        return None
 
 
 #Close the connection with the Database.
