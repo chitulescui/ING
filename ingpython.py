@@ -3,7 +3,6 @@ import pyodbc, json, os, random
 from os.path import exists
 # from credentials import SERVER, PASSWORD, USERNAME, DATABASE, JSON_NAME, NEW_USERNAME, NEW_PASSWORD, NEW_USER
 # from variables import dict_tables
-JSON_NAME="ExportJson.json"
 # Additional varibles
 dict_tables = {'First':['Alice',30,'New York'],'Second':['Bob', 25,'Los Angeles'], 'Third':['Charlie',22,'Chicago']}
 
