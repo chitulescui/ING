@@ -45,9 +45,8 @@ stages:
   - job: Publish_Python_Artifact
     steps:
     - task: PublishPipelineArtifact@1
-      condition: succeededOrFailed()
       displayName: Upload_JSON_File
       inputs:
-       targetPath: "$(System.DefaultWorkingDirectory)/jsontryfilebun.json"
-       artifact: jsontryfilebun
-       publishlocation: 'pipeline'
+          targetPath: '$(Pipeline.Workspace)/jsontryfilebun.json'
+          artifact: 'jsontryfilebun.json'
+          publishLocation: 'pipeline'
