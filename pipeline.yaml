@@ -48,6 +48,6 @@ stages:
       condition: succeededOrFailed()
       displayName: Upload_JSON_File
       inputs:
-       targetPath: "$(System.DefaultWorkingDirectory)/jsonfile.json"
-       artifact: jsonfile.json
+       targetPath: "$(System.DefaultWorkingDirectory)/jsontryfilebun.json"
+       artifact: jsontryfilebun
        publishlocation: 'pipeline'
