@@ -91,10 +91,10 @@ def export_table():
             for i in range(len(table_list)):
                 export_list.append(json.loads(table_list[i])[0])
             with open(f'{JSON_NAME}', 'w') as f:     #Create JSON file.
-                json.dump(export_list, f, indent=4)
+                myJson=json.dump(export_list, f, indent=4)
                 print(f"{JSON_NAME} file created successfully!")
                 print(f"{JSON_NAME}, {DATABASE}, {NEW_PASSWORD},{NEW_USER},{NEW_USERNAME}")
-                return JSON_NAME
+                return myJson
     except pyodbc.Error as e:
         print(str(e))
         return None
