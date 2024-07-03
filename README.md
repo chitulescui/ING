@@ -18,7 +18,7 @@
 7. Populate the tables using `populate_tables()` function.
 8. Create a new login for the SQL Server.
 9. Connect to new user.
-10. Check if exists and export a random table from your database in a JSON format using `export_table()` function.
+10. Check if exists and export all the tables from the database in a JSON format using `export_table()` function.
 11. Close the connection in order for transactions to not remain active on the Database server using `close_connection()` function. 
 
 ## Python
@@ -40,7 +40,7 @@ Yaml file was created at the repository level. In order to execute `docker run` 
 
 * sqlVariables - for `ACCEPT_EULA`, `MSSQL_ROOT_PASSWORD`, `PORT`, `USER`, `NEW_PASSWORD`, `NEW_USER`, `NEW_USERNAME`
 
-![SALVARSBUN](https://github.com/chitulescui/ING/assets/93248891/9d1b4b59-7769-48ce-8010-49c6c33ec88f)
+![image](https://github.com/chitulescui/ING/assets/93248891/e3c9afaf-a449-41ed-b4ab-7758df3a8d72)
 
 Trigger was set to `none` so you can trigger the pipeline manually.
 The Agent hosting the pipeline runs locally on my computer(`SWK`- declared in `Default` agent pool) 
