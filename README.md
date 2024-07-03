@@ -16,8 +16,8 @@
 5. Check if exists, create and use a Database using `create_database()` function.
 6. Check if exists and create tables based on the predefined values of a list using `create_table()` function.
 7. Populate the tables using `populate_tables()` function.
-8. Create a new login for the SQL Server.
-9. Connect to new user.
+8. Create a new login for the SQL Server using `create_login()` function.
+9. Create and connect to the new user.
 10. Check if exists and export all the tables from the database in a JSON format using `export_table()` function.
 11. Close the connection in order for transactions to not remain active on the Database server using `close_connection()` function. 
 
@@ -40,41 +40,44 @@ Yaml file was created at the repository level. In order to execute `docker run` 
 
 * sqlVariables - for `ACCEPT_EULA`, `MSSQL_ROOT_PASSWORD`, `PORT`, `USER`, `NEW_PASSWORD`, `NEW_USER`, `NEW_USERNAME`
 
-![image](https://github.com/chitulescui/ING/assets/93248891/e3c9afaf-a449-41ed-b4ab-7758df3a8d72)
+![image](https://github.com/chitulescui/ING/assets/93248891/c55e9b96-8981-4f14-bed0-c693f9313b67)
+
 
 Trigger was set to `none` so you can trigger the pipeline manually.
 The Agent hosting the pipeline runs locally on my computer(`SWK`- declared in `Default` agent pool) 
 Github repository is specified as the primary resource of the source code, using the service connection created before. (endpoint: chitulescui)
 
-I`ve declared 3 different stages: 
+I`ve declared 2 different stages: 
 * Build_And_Run_Docker_Image (2 Powershell tasks) - To execute the Dockerfile and run the Microsoft SQL container and to ensure that the Run task will start after the Build one. 
 ```
 Docker_Build
 Run_Docker_Container (dependsOn Docker_Build)
 ```
-* Run_Python_Script (1 PythonScript@0 task) - To execute the Python script.
+* Run_Python_Script_Publish_Python_Artifact (2 tasks: PythonScript@0 task & PublishPipelineArtifact@1 task) - To execute the Python script and to publish the JSON output file as an artifact. 
+
 ```
-Python
+Python_and_Publish
 ```
-* Publish_Python_Artifact (1 PublishPipelineArtifact@1 task) - To publish the JSON output file as an artifact. 
-```
-Publish_Python_Artifact
-```
+
 ## Azure DevOps Pipeline Results
 * The pipeline `chitulescui.ING` is working as expected.
 
-![Pipeline_successfull](https://github.com/chitulescui/ING/assets/93248891/bab578d8-4f47-4645-bd0e-1fb7f81cfc52)
+![image](https://github.com/chitulescui/ING/assets/93248891/aec2a52a-a7d5-4401-805c-2f8cf8b9779d)
+
 
 * The artifact was successfully published. 
 
-![Published_artifact_successfully](https://github.com/chitulescui/ING/assets/93248891/0cd5123b-b36b-44ba-a487-24b8a2918be3)
+![image](https://github.com/chitulescui/ING/assets/93248891/a79034f6-be89-4b01-b0ff-2f8ae701138c)
+
 
 * Artifact content.
 
-![image](https://github.com/chitulescui/ING/assets/93248891/855b2403-605a-49e0-a4d6-97fcae14a268)
+![image](https://github.com/chitulescui/ING/assets/93248891/1ca8c941-c03d-4308-915c-c8c25401429a)
+
 
 * Python Job task result:
 
-![image](https://github.com/chitulescui/ING/assets/93248891/d0f96d0f-f788-43b5-a7c3-847f124f0e12)
+![image](https://github.com/chitulescui/ING/assets/93248891/02a7dcd3-c376-4397-b5ca-4cb5cda7cc93)
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
