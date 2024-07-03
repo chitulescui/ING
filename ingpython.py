@@ -1,15 +1,3 @@
-import os
-#Credentials
-
-SERVER = os.environ.get('HOST')
-PASSWORD = os.environ.get('MSSQL_ROOT_PASSWORD')
-USERNAME = os.environ.get("USER")
-DATABASE = os.environ.get('DATABASE')
-JSON_NAME = os.environ.get("JSON_NAME")
-NEW_USERNAME = os.environ.get('NEW_USERNAME')
-NEW_PASSWORD = os.environ.get('NEW_PASSWORD')
-NEW_USER = os.environ.get('NEW_USER')
-
 #Import Libraries
 import pyodbc, json, os, random
 from os.path import exists
@@ -134,7 +122,7 @@ def export_table():
 
 #Create new login
 def create_login():
-    cursor.execute(f"CREATE LOGIN {NEW_USERNAME} WITH PASSWORD = '{NEW_PASSWORD}';");
+    cursor.execute(f"CREATE LOGIN {NEW_USERNAME} WITH PASSWORD = {NEW_PASSWORD};");
     cursor.execute(f"CREATE USER {NEW_USER} FOR LOGIN {NEW_USERNAME}")
     cursor.execute(f"EXEC sp_addsrvrolemember '{NEW_USERNAME}', 'sysadmin';")
     cursor.execute(f"USE {DATABASE}")
