@@ -2,23 +2,9 @@
 import pyodbc, json, os, random
 from os.path import exists
 from credentials import SERVER, PASSWORD, USERNAME, DATABASE, JSON_NAME, NEW_USERNAME, NEW_PASSWORD, NEW_USER
-# from variables import dict_tables
-# Additional varibles
-dict_tables = {'First':['Alice',30,'New York'],'Second':['Bob', 25,'Los Angeles'], 'Third':['Charlie',22,'Chicago']}
+from variables import dict_tables
 
 
-# SERVER=".,1433"
-# PASSWORD="Cirica01@@"
-# USERNAME="sa"
-# DATABASE="trydatabasebun"
-# JSON_NAME="jsonfile.json"
-
-# 
-# SERVER=".,1433"
-# NEW_PASSWORD='logincoco1234@@'
-# NEW_USERNAME='login47'
-# NEW_USER='userlogin47'
-# DATABASE="login"
 
 
 #Create the connection to SQL Server
@@ -44,7 +30,6 @@ def create_connection(server, username, password):
 
 
 # Create and select the Database.
-
 
 
 
@@ -119,7 +104,7 @@ def export_table():
         print(str(e))
         return None
 
-#Create new login
+#Create new login for Microsoft SQL server
 def create_login():
     cursor.execute(f"CREATE LOGIN {NEW_USERNAME} WITH PASSWORD = '{NEW_PASSWORD}';")
     cursor.execute(f"CREATE USER {NEW_USER} FOR LOGIN {NEW_USERNAME};")
