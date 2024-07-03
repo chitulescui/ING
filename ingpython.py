@@ -94,6 +94,7 @@ def export_table():
                 json.dump(export_list, f, indent=4)
                 print(f"{JSON_NAME} file created successfully!")
                 print(f"{JSON_NAME}, {DATABASE}, {NEW_PASSWORD},{NEW_USER},{NEW_USERNAME}")
+                return JSON_NAME
     except pyodbc.Error as e:
         print(str(e))
         return None
