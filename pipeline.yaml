@@ -6,7 +6,31 @@ pool:
 
 variables:
 - group: pythonVariables
+- name: pythonInterpreter
+  value: $(pythonInterpreter)
+- name: scriptPath
+  value: $(scriptPath)
+
 - group: sqlVariables
+- name: $(ACCEPT_EULA)
+  value: $ACCEPT_EULA
+- name: DATABASE
+  value: $(DATABASE)
+- name: HOST
+  value: $(HOST)
+- name: MSSQL_ROOT_PASSWORD
+  value: $(MSSQL_ROOT_PASSWORD)
+- name: NEW_PASSWORD
+  value: $(NEW_PASSWORD)
+- name: NEW_USER
+  value: $(NEW_USER)
+- name: NEW_USERNAME
+  value: $(PORT)
+- name: PORT
+  value: $(NEW_USERNAME)
+- name: USER
+  value: $(USER)
+
 
 resources:
   repositories:
