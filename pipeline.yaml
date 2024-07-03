@@ -14,7 +14,7 @@ resources:
     type: github
     name: chitulescui/ING
     endpoint: chitulescui
-    ref: main   
+    ref: developer   
 
 stages:
 - stage: Build_And_Run_Docker_Image
@@ -29,25 +29,19 @@ stages:
       - powershell: docker run --name some-mysql -p $(PORT):$(PORT) -e $(ACCEPT_EULA) -e "MSSQL_SA_PASSWORD=$(MSSQL_ROOT_PASSWORD)" -d chitulescui/sqlserver
     displayName: Docker_Run
     dependsOn: Docker_Build
-
-- stage: Run_Python_Script
+# 
+- stage: Run_Python_Script_Publish_Python_Artifact
   jobs:
   - job: Python
     steps:
+    - checkout: ING
     - task: PythonScript@0
       inputs:
         scriptSource: 'filePath'
         scriptPath: '$(scriptPath)'
         pythonInterpreter: '$(pythonInterpreter)'
-
-- stage: Publish_Python_Artifact
-  jobs: 
-  - job: Publish_Python_Artifact
-    steps:
     - task: PublishPipelineArtifact@1
-      condition: succeededOrFailed()
-      displayName: Upload_JSON_File
+      displayName: Publish_Python_Artifact_Upload_JSON_File
       inputs:
-       targetPath: "$(System.DefaultWorkingDirectory)/jsonfile.json"
-       artifact: jsonfile.json
-       publishlocation: 'pipeline'
+        targetPath: '$(System.DefaultWorkingDirectory)/jsonexport.json'
+        artifact: jsonexport
