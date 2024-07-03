@@ -8,18 +8,18 @@ JSON_NAME="ExportJson.json"
 dict_tables = {'First':['Alice',30,'New York'],'Second':['Bob', 25,'Los Angeles'], 'Third':['Charlie',22,'Chicago']}
 
 
-SERVER=".,1433"
-PASSWORD="Cirica01@@"
-USERNAME="sa"
-DATABASE="trydatabasebun"
-JSON_NAME="jdsdsantryfilebun.json"
-#
+# SERVER=".,1433"
+# PASSWORD="Cirica01@@"
+# USERNAME="sa"
+# DATABASE="trydatabasebun"
+# JSON_NAME="jsonfile.json"
 
-SERVER=".,1433"
-NEW_PASSWORD='logincoco1234@@'
-NEW_USERNAME='login47'
-NEW_USER='userlogin47'
-# # DATABASE="login"
+# 
+# SERVER=".,1433"
+# NEW_PASSWORD='logincoco1234@@'
+# NEW_USERNAME='login47'
+# NEW_USER='userlogin47'
+# DATABASE="login"
 
 
 #Create the connection to SQL Server
