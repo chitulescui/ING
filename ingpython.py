@@ -98,6 +98,7 @@ def export_table():
         return None
 
 #Create new login for Microsoft SQL server
+
 def create_login():
     try:
         cursor.execute(f"CREATE LOGIN {NEW_USERNAME} WITH PASSWORD = '{NEW_PASSWORD}';")  #Create New Username for the New Login with a new Password

@@ -1,5 +1,6 @@
 import os
-#Credentials
+
+#Credentials from Azure Devops
 USERNAME = os.environ.get("USER")
 PASSWORD = os.environ.get('MSSQL_ROOT_PASSWORD')
 SERVER=os.environ.get('SERVER')
