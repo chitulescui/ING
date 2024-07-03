@@ -4,22 +4,22 @@ from os.path import exists
 from credentials import SERVER, PASSWORD, USERNAME, DATABASE, JSON_NAME, NEW_USERNAME, NEW_PASSWORD, NEW_USER
 from variables import dict_tables
 JSON_NAME="ExportJson.json"
-# Additional varibles
-# dict_tables = {'First':['Alice',30,'New York'],'Second':['Bob', 25,'Los Angeles'], 'Third':['Charlie',22,'Chicago']}
+Additional varibles
+dict_tables = {'First':['Alice',30,'New York'],'Second':['Bob', 25,'Los Angeles'], 'Third':['Charlie',22,'Chicago']}
+
+
+SERVER=".,1433"
+PASSWORD="Cirica01@@"
+USERNAME="sa"
+DATABASE="trydatabasebun"
+JSON_NAME="jdsdsantryfilebun.json"
 #
-#
-# SERVER=".,1433"
-# PASSWORD="Cirica01@@"
-# USERNAME="sa"
-# DATABASE="trydatabasebun"
-# JSON_NAME="jdsdsantryfilebun.json"
-# #
-#
-# SERVER=".,1433"
-# NEW_PASSWORD='logincoco1234@@'
-# NEW_USERNAME='login4'
-# NEW_USER='userlogin4'
-# # # DATABASE="login"
+
+SERVER=".,1433"
+NEW_PASSWORD='logincoco1234@@'
+NEW_USERNAME='login4'
+NEW_USER='userlogin4'
+# # DATABASE="login"
 
 
 #Create the connection to SQL Server
@@ -105,16 +105,16 @@ def export_table():
         if file_exists == True:
             print(f"{JSON_NAME} already exists!")
         else:
-            lista_tabele = []
-            lista_noua=[]
+            table_list = []
+            export_list= []
             for table_key in dict_tables.keys():
                 cursor.execute(f"SELECT name AS 'name', age AS 'age', city AS 'city' FROM {table_key} FOR JSON PATH;")
                 json_result=cursor.fetchone()[0]
-                lista_tabele.append(json_result)
-            for i in range(len(lista_tabele)):
-                lista_noua.append(json.loads(lista_tabele[i])[0])
+                table_list.append(json_result)
+            for i in range(len(table_list)):
+                export_list.append(json.loads(table_list[i])[0])
             with open(f'{JSON_NAME}', 'w') as f:     #Create JSON file.
-                json.dump(lista_noua, f, indent=4)
+                json.dump(export_list, f, indent=4)
                 print(f"{JSON_NAME} file created successfully!")
     except pyodbc.Error as e:
         print(str(e))
