@@ -58,7 +58,7 @@ def create_table():
 #Populate the tables.
 
 def populate_tables():
-    try:                                               #Populate the table with values from 3 lists(names, ages, cities).
+    try:                                               #Populate the table with values from dictionary keys.
         # Ensure the lists have the same length
         for key in dict_tables.keys():
             cursor.execute(f"""                                
@@ -77,7 +77,7 @@ def populate_tables():
 
 def export_table():
     try:
-        file_exists = os.path.exists(f'{JSON_NAME}') #Check if the file with the same name exists or not.
+        file_exists = os.path.exists(f'{JSON_NAME}')               #Check if the file with the same name exists or not.
         if file_exists == True:
             print(f"{JSON_NAME} already exists!")
         else:
@@ -88,8 +88,8 @@ def export_table():
                 json_result=cursor.fetchone()[0]
                 table_list.append(json_result)
             for i in range(len(table_list)):
-                export_list.append(json.loads(table_list[i])[0])
-            with open(f'{JSON_NAME}', 'w') as f:     #Create JSON file.
+                export_list.append(json.loads(table_list[i])[0])    #Create the list with all dictionaries.
+            with open(f'{JSON_NAME}', 'w') as f:                    #Create JSON file.
                 json.dump(export_list, f, indent=4)
                 print(f"{JSON_NAME} file created successfully!")
 
@@ -100,10 +100,10 @@ def export_table():
 #Create new login for Microsoft SQL server
 def create_login():
     try:
-        cursor.execute(f"CREATE LOGIN {NEW_USERNAME} WITH PASSWORD = '{NEW_PASSWORD}';")
-        cursor.execute(f"CREATE USER {NEW_USER} FOR LOGIN {NEW_USERNAME};")
-        cursor.execute(f"EXEC sp_addsrvrolemember {NEW_USERNAME}, 'sysadmin';")
-        cursor.execute(f"USE {DATABASE};")
+        cursor.execute(f"CREATE LOGIN {NEW_USERNAME} WITH PASSWORD = '{NEW_PASSWORD}';")  #Create New Username for the New Login with a new Password
+        cursor.execute(f"CREATE USER {NEW_USER} FOR LOGIN {NEW_USERNAME};")               #Create New User for the New Login
+        cursor.execute(f"EXEC sp_addsrvrolemember {NEW_USERNAME}, 'sysadmin';")           #Grant privileges for the New User
+        cursor.execute(f"USE {DATABASE};")                                                #Use the previously created Database
         print("I`m using the new login")
     except pyodbc.Error as e:
         print(str(e))
@@ -112,7 +112,7 @@ def create_login():
 
 #Close the connection with the Database.
 
-def close_connection():
+def close_connection():                         
     cursor.close()
     connection.close()
 
@@ -122,11 +122,10 @@ def close_connection():
 try:
     create_connection(SERVER, USERNAME, PASSWORD)       #Establish Connection
     create_database(DATABASE)                           #Create Database
-    create_table()                                #Create Tables
-    populate_tables()                  #Populate Tables
-    create_login()
-    create_connection(SERVER,NEW_USERNAME,NEW_PASSWORD)
-    cursor.execute(f"USE {DATABASE}")
+    create_table()                                      #Create Tables
+    populate_tables()                                   #Populate Tables
+    create_login()                                      #Create New Login
+    create_connection(SERVER,NEW_USERNAME,NEW_PASSWORD) #Establish the connection to SQL Database with the new Login                
     export_table()                                      #Export one of the Tables
 except pyodbc.OperationalError as e:
     print("Could not establish connection: "+ str(e))
