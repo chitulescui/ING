@@ -73,5 +73,8 @@ Publish_Python_Artifact
 
 ![image](https://github.com/chitulescui/ING/assets/93248891/855b2403-605a-49e0-a4d6-97fcae14a268)
 
+* Python Job task result:
+
+![image](https://github.com/chitulescui/ING/assets/93248891/d0f96d0f-f788-43b5-a7c3-847f124f0e12)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
