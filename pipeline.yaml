@@ -14,7 +14,7 @@ resources:
     type: github
     name: chitulescui/ING
     endpoint: chitulescui
-    ref: developer   
+    ref: main  
 
 stages:
 - stage: Build_And_Run_Docker_Image
@@ -32,7 +32,7 @@ stages:
 
 - stage: Run_Python_Script_Publish_Python_Artifact
   jobs:
-  - job: Python
+  - job: Python_and_Publish
     steps:
     - checkout: ING
     - task: PythonScript@0
