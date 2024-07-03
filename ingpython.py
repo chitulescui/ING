@@ -4,9 +4,6 @@ from os.path import exists
 from credentials import SERVER, PASSWORD, USERNAME, DATABASE, JSON_NAME, NEW_USERNAME, NEW_PASSWORD, NEW_USER
 from variables import dict_tables
 
-
-
-
 #Create the connection to SQL Server
 def create_connection(server, username, password):
     global connection, cursor                          #Globally declared variables in order to use them in the next functions.
@@ -30,10 +27,6 @@ def create_connection(server, username, password):
 
 
 # Create and select the Database.
-
-
-
-# create_login()
 def create_database(database=DATABASE):                     
     try:                                              #Creating the database and checks if the database already exists or not. 
         cursor.execute(f"""
@@ -100,6 +93,7 @@ def export_table():
             with open(f'{JSON_NAME}', 'w') as f:     #Create JSON file.
                 json.dump(export_list, f, indent=4)
                 print(f"{JSON_NAME} file created successfully!")
+                print(f"{JSON_NAME}, {DATABASE},{NEW_PASSWORD},{NEW_USER},{NEW_USERNAME}")
     except pyodbc.Error as e:
         print(str(e))
         return None
