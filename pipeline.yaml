@@ -14,7 +14,7 @@ resources:
     type: github
     name: chitulescui/ING
     endpoint: chitulescui
-    ref: developer   
+    ref: main   
 
 stages:
 - stage: Build_And_Run_Docker_Image
