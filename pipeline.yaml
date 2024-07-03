@@ -39,11 +39,13 @@ stages:
         scriptSource: 'filePath'
         scriptPath: '$(scriptPath)'
         pythonInterpreter: '$(pythonInterpreter)'
+  - job: Publish_Python_Artifact
+    steps:
     - task: PublishPipelineArtifact@1
       displayName: Upload_JSON_File
       inputs:
-        targetPath: '$(System.DefaultWorkingDirectory)/jsontryfilebun.json'
-        artifact: jsontryfilebun
+        targetPath: '$(System.DefaultWorkingDirectory)/jsonexport.json'
+        artifact: jsonexport
 
 # - stage: Publish_Python_Artifact
   # jobs: 
