@@ -30,7 +30,7 @@ stages:
     displayName: Docker_Run
     dependsOn: Docker_Build
 # 
-- stage: Run_Python_Script
+- stage: Run_Python_Script_Publish_Python_Artifact
   jobs:
   - job: Python
     steps:
@@ -40,22 +40,8 @@ stages:
         scriptSource: 'filePath'
         scriptPath: '$(scriptPath)'
         pythonInterpreter: '$(pythonInterpreter)'
-  - job: Publish_Python_Artifact
-    steps:
-    - checkout: ING
     - task: PublishPipelineArtifact@1
-      displayName: Upload_JSON_File
+      displayName: Publish_Python_Artifact_Upload_JSON_File
       inputs:
         targetPath: '$(System.DefaultWorkingDirectory)/jsonexport.json'
         artifact: jsonexport
-
-# - stage: Publish_Python_Artifact
-  # jobs: 
-  # - job: Publish_Python_Artifact
-    # steps:
-    # - task: PublishPipelineArtifact@1
-      # displayName: Upload_JSON_File
-      # inputs:
-          # targetPath: '$(System.DefaultWorkingDirectory)/jsontryfilebun.json'
-          # artifact: jsontryfilebun
-          # publishLocation: 'pipeline'
